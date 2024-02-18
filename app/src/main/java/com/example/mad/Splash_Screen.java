@@ -21,6 +21,6 @@ public class Splash_Screen extends AppCompatActivity {
                 SystemOprations.toGoNewPage(Splash_Screen.this,WelcomeActivity.class);
                 finish();
             }
-        },1000);
+        },10);
     }
 }

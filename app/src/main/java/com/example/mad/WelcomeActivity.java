@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    TextView signIn;
-    TextView logIn;
+    TextView signIn,logIn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +27,7 @@ public class WelcomeActivity extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // SystemOprations.toGoNewPage(WelcomeActivity.this,SignInActivity.class);
                 SystemOprations.toGoNewPage(WelcomeActivity.this,LoginActivity.class);
             }
         });
