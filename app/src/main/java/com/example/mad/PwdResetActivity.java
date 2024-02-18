@@ -27,7 +27,7 @@ public class PwdResetActivity extends AppCompatActivity {
         otp = (EditText) findViewById(R.id.txtOTP);
         newPwd = (EditText) findViewById(R.id.txtNewPWD);
         newPwdConf = (EditText) findViewById(R.id.txtNewPWD2);
-        //hi
+        //lable click
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
