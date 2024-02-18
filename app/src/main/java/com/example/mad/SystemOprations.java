@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class SystemOprations {
     public  static  void toGoNewPage(Context context, Class<?>newPage){
         Intent intent = new Intent(context, newPage);
@@ -37,5 +40,20 @@ public class SystemOprations {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+    public  static  String curretDate(){
+        LocalDateTime now = null;
+        String dateTime="";
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            now = LocalDateTime.now();
+        }
+        DateTimeFormatter formatter = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            dateTime = now.format(formatter);
+        }
+        return  dateTime;
     }
 }

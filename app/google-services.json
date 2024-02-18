@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "439819118499",
+    "project_id": "mobile-app-dev-icbt",
+    "storage_bucket": "mobile-app-dev-icbt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439819118499:android:c4f2e6e04be3b37527dc16",
+        "android_client_info": {
+          "package_name": "com.example.mad"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGVwyCzb8sZshA_4E2Qh6HHhKseQMPGl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

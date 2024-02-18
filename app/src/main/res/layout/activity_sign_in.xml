@@ -103,6 +103,13 @@
                     android:text="Register"
                     android:textSize="30dp"
                     app:cornerRadius="20dp" />
+                <ProgressBar
+                    android:id="@+id/prgBar"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:visibility="invisible"
+                    android:layout_height="wrap_content"/>
+
 
 
             </LinearLayout>
