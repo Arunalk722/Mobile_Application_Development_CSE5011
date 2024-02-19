@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class SystemOprations {
+
+    static String emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
     public  static  void toGoNewPage(Context context, Class<?>newPage){
         Intent intent = new Intent(context, newPage);
         context.startActivity(intent);

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,25 +29,15 @@ public class LoginActivity extends AppCompatActivity {
     EditText userName,pwd;
     Button login;
     ProgressBar loginProgressBar;
-    String emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
+
 
     private FirebaseAuth gAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        sigIn = (TextView)findViewById(R.id.lblSignIn);
-        pwdReset = (TextView)findViewById(R.id.lblPWDReset);
-        pwd=(EditText)findViewById(R.id.txtPassword) ;
-        userName = (EditText)findViewById(R.id.txtUserName);
-        login = (Button)findViewById(R.id.btnLogin);
-        loginProgressBar = (ProgressBar)findViewById(R.id.prgBar);
-
-        loginProgressBar.setVisibility(View.INVISIBLE);
-
-
-        gAuth = FirebaseAuth.getInstance();
-
+        layoutInit();
+        setPwdLinkDisable();
         sigIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         pwdReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetPwd();
+                resetPwd(userName.getText().toString().trim());
               //  SystemOprations.toGoNewPage(LoginActivity.this,PwdResetActivity.class);
             }
         });
@@ -65,56 +57,93 @@ public class LoginActivity extends AppCompatActivity {
                 String txtPwd = pwd.getText().toString();
                 String txtUserName = userName.getText().toString().trim();
 
-                if(txtPwd.isEmpty()){
-                    SystemOprations.showMessage("Please provide password", "Password required", LoginActivity.this, 2);
-                    pwd.setError("please provide password");
-                    return;
-                }
-                if(!txtUserName.matches(emailPattern)){
-                    SystemOprations.showMessage("Please provide email address in correct format", "Email format is wrong", LoginActivity.this, 2);
+                if(!txtUserName.matches(SystemOprations.emailPattern)){
+                   // SystemOprations.showMessage("Please provide password", "Password required", LoginActivity.this, 2);
+
                     userName.setError("please provide valid email");
                     return;
                 }
-                loginProgressBar.setVisibility(View.VISIBLE);
-                login.setVisibility(View.INVISIBLE);
-                userName.setError(null);
-                pwd.setError(null);
-                loginFB();
+                if(txtPwd.isEmpty()){
+                  //  SystemOprations.showMessage("Please provide email address in correct format", "Email format is wrong", LoginActivity.this, 2);
+                    pwd.setError("please provide password");
+                    return;
+                }
+                showPrograssBar();
+                loginFB(txtPwd,txtUserName);
             }
         });
     }
-    void loginFB(){
-        String txtPwd = pwd.getText().toString();
-        String txtUserName = userName.getText().toString().trim();
-    gAuth.signInWithEmailAndPassword(txtUserName,txtPwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-        @Override
-        public void onSuccess(AuthResult authResult) {
-            SystemOprations.showMessage("Login successful", "Login successful", LoginActivity.this, 1);
-        }
-    }).addOnFailureListener(new OnFailureListener() {
-        @Override
-        public void onFailure(@NonNull Exception e) {
-            SystemOprations.showMessage(e.getMessage(), "Login failed", LoginActivity.this, 2);
-            loginProgressBar.setVisibility(View.INVISIBLE);
-            login.setVisibility(View.VISIBLE);
-        }
-    });
+    void layoutInit(){
+        sigIn = (TextView)findViewById(R.id.lblSignIn);
+        pwdReset = (TextView)findViewById(R.id.lblPWDReset);
+        pwd=(EditText)findViewById(R.id.txtPassword) ;
+        userName = (EditText)findViewById(R.id.txtUserName);
+        login = (Button)findViewById(R.id.btnLogin);
+        loginProgressBar = (ProgressBar)findViewById(R.id.prgBar);
+        hidePrograssBar();
+        gAuth = FirebaseAuth.getInstance();
     }
-    void resetPwd(){
+    void setPwdLinkDisable(){
+        pwdReset.setEnabled(false);
+        pwdReset.setTextColor(Color.parseColor("#545352"));
+    }
+    void setPwdLinkEnable(){
+        pwdReset.setEnabled(true);
+        pwdReset.setTextColor(getResources().getColor(R.color.darkPink));
+    }
+
+    void loginFB(String txtPwd,String txtUserName){
+
+            gAuth.signInWithEmailAndPassword(txtUserName,txtPwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                @Override
+                public void onSuccess(AuthResult authResult) {
+                    SystemOprations.showMessage("Login successful", "Login successful", LoginActivity.this, 1);
+                   //go to welcome page
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    SystemOprations.showMessage(e.getMessage(), "Login failed", LoginActivity.this, 2);
+
+                    hidePrograssBar();
+                    setPwdLinkEnable();
+                }
+            });
+
+    }
+    void resetPwd(String txtUserName){
+        if(txtUserName.matches(SystemOprations.emailPattern)){
+            showPrograssBar();
+            gAuth.sendPasswordResetEmail(txtUserName).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    SystemOprations.showMessage("We will send password reset link to your email.", "password reset", LoginActivity.this, 1);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    hidePrograssBar();
+
+                    SystemOprations.showMessage(e.getMessage(), "password reset failed.", LoginActivity.this, 2);
+                }
+            });
+        }else{
+            SystemOprations.showMessage("please check your email address.", "invalid email address", LoginActivity.this, 2);
+        }
+    }
+    void showPrograssBar(){
         loginProgressBar.setVisibility(View.VISIBLE);
-        String txtUserName = userName.getText().toString().trim();
-        gAuth.sendPasswordResetEmail(txtUserName).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                loginProgressBar.setVisibility(View.INVISIBLE);
-                SystemOprations.showMessage("We will send password reset link to your email.", "password reset", LoginActivity.this, 1);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                loginProgressBar.setVisibility(View.INVISIBLE);
-                SystemOprations.showMessage(e.getMessage(), "password reset failed.", LoginActivity.this, 1);
-            }
-        });
+        login.setVisibility(View.INVISIBLE);
+        resetError();
+    }
+    void hidePrograssBar(){
+        loginProgressBar.setVisibility(View.INVISIBLE);
+        login.setVisibility(View.VISIBLE);
+        resetError();
+    }
+    void resetError(){
+        userName.setError(null);
+        pwd.setError(null);
     }
 }
