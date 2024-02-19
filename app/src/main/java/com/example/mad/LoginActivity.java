@@ -23,6 +23,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class LoginActivity extends AppCompatActivity {
     TextView sigIn,pwdReset;
@@ -31,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     ProgressBar loginProgressBar;
 
 
-    private FirebaseAuth gAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         login = (Button)findViewById(R.id.btnLogin);
         loginProgressBar = (ProgressBar)findViewById(R.id.prgBar);
         hidePrograssBar();
-        gAuth = FirebaseAuth.getInstance();
+
     }
     void setPwdLinkDisable(){
         pwdReset.setEnabled(false);
@@ -93,41 +96,39 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void loginFB(String txtPwd,String txtUserName){
+        FirebaseAuthClass.initLogin(txtUserName, txtPwd, new FirebaseAuthClass.FirestoreCallback() {
+            @Override
+            public void onSuccess() {
+                SystemOprations.showMessage("Login successful", "Login successful", LoginActivity.this, 1);
+            }
 
-            gAuth.signInWithEmailAndPassword(txtUserName,txtPwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
-                    SystemOprations.showMessage("Login successful", "Login successful", LoginActivity.this, 1);
-                   //go to welcome page
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    SystemOprations.showMessage(e.getMessage(), "Login failed", LoginActivity.this, 2);
+            @Override
+            public void onFailure(Exception error) {
+                SystemOprations.showMessage(error.getMessage(), "Login failed", LoginActivity.this, 2);
 
-                    hidePrograssBar();
-                    setPwdLinkEnable();
-                }
-            });
+                hidePrograssBar();
+                setPwdLinkEnable();
+            }
+        });
 
     }
     void resetPwd(String txtUserName){
         if(txtUserName.matches(SystemOprations.emailPattern)){
             showPrograssBar();
-            gAuth.sendPasswordResetEmail(txtUserName).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+            FirebaseAuthClass.resetPwd(txtUserName, new FirebaseAuthClass.FirestoreCallback() {
                 @Override
-                public void onComplete(@NonNull Task<Void> task) {
+                public void onSuccess() {
                     SystemOprations.showMessage("We will send password reset link to your email.", "password reset", LoginActivity.this, 1);
-
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    hidePrograssBar();
 
-                    SystemOprations.showMessage(e.getMessage(), "password reset failed.", LoginActivity.this, 2);
+                @Override
+                public void onFailure(Exception error) {
+                    hidePrograssBar();
+                    SystemOprations.showMessage(error.getMessage(), "password reset failed.", LoginActivity.this, 2);
                 }
             });
+
         }else{
             SystemOprations.showMessage("please check your email address.", "invalid email address", LoginActivity.this, 2);
         }
@@ -146,4 +147,5 @@ public class LoginActivity extends AppCompatActivity {
         userName.setError(null);
         pwd.setError(null);
     }
+
 }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,25 +30,15 @@ public class SignInActivity extends AppCompatActivity {
     ProgressBar signInProgressBar;
     String emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
 
-    private FirebaseAuth gAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        initUI();
 
-        login = (TextView) findViewById(R.id.lblLogin);
 
-        userName = (EditText) findViewById(R.id.txtUserName);
-        pwd1 = (EditText) findViewById(R.id.txtPassword);
-        pwd2 = (EditText) findViewById(R.id.txtPasswordConf);
-        phoneNo = (EditText) findViewById(R.id.txtPhoneNo);
-        reg = (Button) findViewById(R.id.btnRegister);
 
-        signInProgressBar = (ProgressBar) findViewById(R.id.prgBar);
-        signInProgressBar.setVisibility(View.INVISIBLE);
-
-        gAuth = FirebaseAuth.getInstance();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +50,8 @@ public class SignInActivity extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                visibleProBar();
+
                 String txtUserName = userName.getText().toString().trim();
                 String txtPassword = pwd1.getText().toString();
                 String txtPasswordConf = pwd2.getText().toString();
@@ -67,12 +60,14 @@ public class SignInActivity extends AppCompatActivity {
                 if (txtUserName.isEmpty()) {
                     SystemOprations.showMessage("Please provide email address", "User name required", SignInActivity.this, 2);
                     userName.setError("User name required");
+                    hideProBar();
                     return;
                 }
 
                 if (!txtUserName.matches(emailPattern)) {
                     SystemOprations.showMessage("Please provide email address in correct format", "Email format is wrong", SignInActivity.this, 2);
                     userName.setError("Email format is wrong");
+                    hideProBar();
                     return;
                 }
 
@@ -80,6 +75,7 @@ public class SignInActivity extends AppCompatActivity {
                     SystemOprations.showMessage("Please provide password and confirm password", "Password required", SignInActivity.this, 2);
                     pwd1.setError("Password required");
                     pwd2.setError("Password required");
+                    hideProBar();
                     return;
                 }
 
@@ -87,70 +83,94 @@ public class SignInActivity extends AppCompatActivity {
                     SystemOprations.showMessage("Passwords do not match", "Password mismatch", SignInActivity.this, 2);
                     pwd1.setError("Password mismatch");
                     pwd2.setError("Password mismatch");
+                    hideProBar();
                     return;
                 }
 
                 if (txtPhoneNo.isEmpty() || txtPhoneNo.length() != 10) {
                     phoneNo.setError("Invalid phone number");
                     SystemOprations.showMessage("Please provide a 10-digit phone number", "Invalid phone number", SignInActivity.this, 2);
+                    hideProBar();
                     return;
                 }
-                signInProgressBar.setVisibility(View.VISIBLE);
-                reg.setVisibility(View.INVISIBLE);
-                signUpGoogle();
+                signUpGoogle(txtUserName, txtPassword, txtPhoneNo);
             }
         });
 
 
     }
 
-    void signUpGoogle() {
+    void initUI() {
+        login = (TextView) findViewById(R.id.lblLogin);
 
-        String txtUserName = userName.getText().toString().trim();
-        String txtPassword = pwd1.getText().toString();
-        String txtPasswordConf = pwd2.getText().toString();
-        String txtPhoneNo = phoneNo.getText().toString().trim();
+        userName = (EditText) findViewById(R.id.txtUserName);
+        pwd1 = (EditText) findViewById(R.id.txtPassword);
+        pwd2 = (EditText) findViewById(R.id.txtPasswordConf);
+        phoneNo = (EditText) findViewById(R.id.txtPhoneNo);
+        reg = (Button) findViewById(R.id.btnRegister);
 
+        signInProgressBar = (ProgressBar) findViewById(R.id.prgBar);
 
-        gAuth.createUserWithEmailAndPassword(txtUserName, txtPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        hideProBar();
+    }
+
+    void signUpGoogle(String uN, String pwd, String phone) {
+
+        FirebaseAuthClass.initFirebaseAuth(uN, pwd, new FirebaseAuthClass.FirestoreCallback() {
             @Override
-            public void onSuccess(AuthResult authResult) {
-                userAdd();
+            public void onSuccess() {
+                firebaseDB(uN, phone);
+                resetError();
             }
-        }).addOnFailureListener(new OnFailureListener() {
+
             @Override
-            public void onFailure(@NonNull Exception e) {
-                SystemOprations.showMessage(txtUserName + e.getMessage(), "Sign in failed", SignInActivity.this, 2);
-                signInProgressBar.setVisibility(View.INVISIBLE);
-                reg.setVisibility(View.VISIBLE);
+            public void onFailure(Exception error) {
+                SystemOprations.showMessage(uN + error.getMessage(), "Sign in failed", SignInActivity.this, 2);
+                hideProBar();
             }
         });
+    }
+
+    void resetError() {
         pwd1.setError(null);
         pwd2.setError(null);
+        userName.setError(null);
+        phoneNo.setError(null);
     }
 
-    void userAdd() {
+    void firebaseDB(String uN,String phoneNo){
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String txtUserName = userName.getText().toString().trim();
-        String txtPhone = phoneNo.getText().toString();
         Map<String, String> userList = new HashMap<>();
         userList.put("RegDate", SystemOprations.curretDate());
-        userList.put("androidID", txtUserName.toString());
-        userList.put("email", txtUserName.toString());
-        userList.put("phoneNo", txtPhone.toString());
-        db.collection("userList").document().set(userList).addOnSuccessListener(new OnSuccessListener<Void>() {
+        userList.put("androidID", uN.toString());
+        userList.put("email", uN.toString());
+        userList.put("phoneNo", phoneNo.toString());
+
+        FirebaseAuthClass.intFirebaseFireStore(userList, "userList", "", new FirebaseAuthClass.FirestoreCallback() {
             @Override
-            public void onSuccess(Void unused) {
-                SystemOprations.showMessage("Sign in Successful using " + txtUserName, "Sign in Successful", SignInActivity.this, 1);
-                SystemOprations.toGoNewPage(SignInActivity.this,LoginActivity.class);
+            public void onSuccess() {
+                SystemOprations.showMessage("Sign in Successful using " + uN, "Sign in Successful", SignInActivity.this, 1);
+                hideProBar();
+                // SystemOprations.toGoNewPage(SignInActivity.this, LoginActivity.class);
             }
-        }).addOnFailureListener(new OnFailureListener() {
+
             @Override
-            public void onFailure(@NonNull Exception e) {
-                SystemOprations.showMessage(txtUserName + e.getMessage(), "Sign in failed", SignInActivity.this, 2);
+            public void onFailure(Exception e) {
+                Toast.makeText(SignInActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                SystemOprations.showMessage(uN + e.getMessage(), "Sign in failed", SignInActivity.this, 2);
+                hideProBar();
+
             }
         });
 
+    }
+
+    void visibleProBar(){
+        signInProgressBar.setVisibility(View.VISIBLE);
+        reg.setVisibility(View.INVISIBLE);
+    }
+    void hideProBar(){
+        signInProgressBar.setVisibility(View.INVISIBLE);
+        reg.setVisibility(View.VISIBLE);
     }
 }

@@ -63,6 +63,7 @@
                     android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
+                    android:maxLength="12"
                     android:background="@drawable/custome_textbox"
                     android:drawableLeft="@drawable/lock"
                     android:hint="Password"
@@ -78,6 +79,7 @@
                     android:background="@drawable/custome_textbox"
                     android:drawableLeft="@drawable/lock"
                     android:hint="Password"
+                    android:maxLength="12"
                     android:inputType="textPassword"
                     android:padding="10dp" />
 
@@ -102,6 +104,7 @@
                     android:backgroundTint="@color/purple"
                     android:text="Register"
                     android:textSize="30dp"
+                    android:maxLength="10"
                     app:cornerRadius="20dp" />
                 <ProgressBar
                     android:id="@+id/prgBar"

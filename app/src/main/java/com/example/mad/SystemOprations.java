@@ -58,4 +58,7 @@ public class SystemOprations {
         }
         return  dateTime;
     }
+    public static  void initMailAuth(){
+
+    }
 }
