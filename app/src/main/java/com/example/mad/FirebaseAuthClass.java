@@ -9,8 +9,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class FirebaseAuthClass {
 
@@ -19,9 +21,9 @@ public class FirebaseAuthClass {
         void onSuccess();
         void onFailure(Exception error);
     }
-    static void intFirebaseFireStore(Map<String, String> mapData, String collectionName, String docName, FirestoreCallback callback) {
+    static void intFirebaseFireStore(Map<String, Object> mapData, String collectionName, String docName, FirestoreCallback callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(collectionName).document().set(mapData)
+        db.collection(collectionName).document(docName).set(mapData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -85,4 +87,25 @@ public class FirebaseAuthClass {
         });
     }
 
+    static void getNextId(String collectionName, NextIdCallback callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(collectionName).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        int nextId = queryDocumentSnapshots.size() + 1; // Increment the count by one for the next ID
+                        callback.onNextId(nextId);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callback.onError(e);
+                    }
+                });
+    }interface NextIdCallback {
+        void onNextId(int nextId);
+
+        void onError(Exception e);
+    }
 }

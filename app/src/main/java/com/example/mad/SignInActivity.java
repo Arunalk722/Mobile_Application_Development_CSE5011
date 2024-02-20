@@ -1,9 +1,12 @@
 package com.example.mad;
 
+import static com.example.mad.FirebaseAuthClass.getNextId;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +28,7 @@ import java.util.Map;
 
 public class SignInActivity extends AppCompatActivity {
     TextView login;
-    EditText userName, pwd1, pwd2, phoneNo;
+    EditText userName, pwd1, pwd2, phoneNo,address;
     Button reg;
     ProgressBar signInProgressBar;
     String emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
@@ -35,9 +38,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        initUI();
-
-
+        initUIWidget();
 
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -50,13 +51,13 @@ public class SignInActivity extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                visibleProBar();
 
+                visibleProBar();
                 String txtUserName = userName.getText().toString().trim();
                 String txtPassword = pwd1.getText().toString();
                 String txtPasswordConf = pwd2.getText().toString();
                 String txtPhoneNo = phoneNo.getText().toString().trim();
-
+                String txtAddress = address.getText().toString().trim();
                 if (txtUserName.isEmpty()) {
                     SystemOprations.showMessage("Please provide email address", "User name required", SignInActivity.this, 2);
                     userName.setError("User name required");
@@ -93,20 +94,28 @@ public class SignInActivity extends AppCompatActivity {
                     hideProBar();
                     return;
                 }
-                signUpGoogle(txtUserName, txtPassword, txtPhoneNo);
+                if (txtAddress.isEmpty()) {
+                    phoneNo.setError("Invalid phone number");
+                    SystemOprations.showMessage("Please provide a 10-digit phone number", "Invalid phone number", SignInActivity.this, 2);
+                    hideProBar();
+                    return;
+                }
+                signUpGoogle(txtUserName, txtPassword, txtPhoneNo,txtAddress);
             }
         });
 
 
     }
 
-    void initUI() {
+    void initUIWidget() {
         login = (TextView) findViewById(R.id.lblLogin);
 
         userName = (EditText) findViewById(R.id.txtUserName);
         pwd1 = (EditText) findViewById(R.id.txtPassword);
         pwd2 = (EditText) findViewById(R.id.txtPasswordConf);
         phoneNo = (EditText) findViewById(R.id.txtPhoneNo);
+        address = (EditText) findViewById(R.id.txtAddress);
+
         reg = (Button) findViewById(R.id.btnRegister);
 
         signInProgressBar = (ProgressBar) findViewById(R.id.prgBar);
@@ -114,12 +123,12 @@ public class SignInActivity extends AppCompatActivity {
         hideProBar();
     }
 
-    void signUpGoogle(String uN, String pwd, String phone) {
+    void signUpGoogle(String uN, String pwd, String phone,String address) {
 
         FirebaseAuthClass.initFirebaseAuth(uN, pwd, new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {
-                firebaseDB(uN, phone);
+                firebaseDB(uN, phone,address);
                 resetError();
             }
 
@@ -138,15 +147,16 @@ public class SignInActivity extends AppCompatActivity {
         phoneNo.setError(null);
     }
 
-    void firebaseDB(String uN,String phoneNo){
+    void firebaseDB(String uN,String phoneNo,String address){
 
-        Map<String, String> userList = new HashMap<>();
-        userList.put("RegDate", SystemOprations.curretDate());
-        userList.put("androidID", uN.toString());
+        Map<String, Object> userList = new HashMap<>();
         userList.put("email", uN.toString());
         userList.put("phoneNo", phoneNo.toString());
-
-        FirebaseAuthClass.intFirebaseFireStore(userList, "userList", "", new FirebaseAuthClass.FirestoreCallback() {
+        userList.put("isLogin",true);
+        userList.put("address", address.toString());
+        userList.put("UserTypeIs", "M");
+        userList.put("RegDate", SystemOprations.curretDate());
+        FirebaseAuthClass.intFirebaseFireStore(userList, "User_List", uN.toString().toString(), new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {
                 SystemOprations.showMessage("Sign in Successful using " + uN, "Sign in Successful", SignInActivity.this, 1);
@@ -156,7 +166,6 @@ public class SignInActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Exception e) {
-                Toast.makeText(SignInActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 SystemOprations.showMessage(uN + e.getMessage(), "Sign in failed", SignInActivity.this, 2);
                 hideProBar();
 
@@ -173,4 +182,5 @@ public class SignInActivity extends AppCompatActivity {
         signInProgressBar.setVisibility(View.INVISIBLE);
         reg.setVisibility(View.VISIBLE);
     }
+
 }

@@ -93,7 +93,19 @@
                     android:drawableLeft="@drawable/pd_plus"
                     android:hint="Phone No"
                     android:inputType="phone"
-                    android:maxLines="10"
+                    android:maxLength="10"
+                    android:padding="10dp" />
+                <EditText
+                    android:id="@+id/txtAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/custome_textbox"
+                    android:drawableLeft="@drawable/post_card"
+                    android:hint="Address"
+                    android:inputType="textPostalAddress"
+                    android:maxLength="80"
                     android:padding="10dp" />
 
                 <Button
