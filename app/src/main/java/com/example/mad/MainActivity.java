@@ -14,5 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SystemOprations.toGoNewPage(this,Splash_Screen.class);
+
+
     }
 }
