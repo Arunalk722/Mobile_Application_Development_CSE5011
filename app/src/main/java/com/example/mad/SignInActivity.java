@@ -1,6 +1,6 @@
 package com.example.mad;
 
-import static com.example.mad.FirebaseAuthClass.getNextId;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -125,7 +125,8 @@ public class SignInActivity extends AppCompatActivity {
 
     void signUpGoogle(String uN, String pwd, String phone,String address) {
 
-        FirebaseAuthClass.initFirebaseAuth(uN, pwd, new FirebaseAuthClass.FirestoreCallback() {
+        FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
+        firebaseAuthClass.initFirebaseAuth(uN, pwd, new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {
                 firebaseDB(uN, phone,address);
@@ -156,7 +157,9 @@ public class SignInActivity extends AppCompatActivity {
         userList.put("address", address.toString());
         userList.put("UserTypeIs", "M");
         userList.put("RegDate", SystemOprations.curretDate());
-        FirebaseAuthClass.intFirebaseFireStore(userList, "User_List", uN.toString().toString(), new FirebaseAuthClass.FirestoreCallback() {
+
+        FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
+        firebaseAuthClass.intFirebaseFireStore(userList, "User_List", uN.toString().toString(), new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {
                 SystemOprations.showMessage("Sign in Successful using " + uN, "Sign in Successful", SignInActivity.this, 1);

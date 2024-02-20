@@ -3,6 +3,8 @@ package com.example.mad;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import androidx.navigation.NavController;
@@ -13,10 +15,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.mad.databinding.ActivityHomeBinding;
 
+
 public class HomeActivity extends AppCompatActivity {
+    TextView userName;
 
     private AppBarConfiguration mAppBarConfiguration;
 private ActivityHomeBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +30,14 @@ private ActivityHomeBinding binding;
      binding = ActivityHomeBinding.inflate(getLayoutInflater());
      setContentView(binding.getRoot());
 
+     userName = (TextView)findViewById(R.id.lblUserName);
+
+
         setSupportActionBar(binding.appBarHome.toolbar);
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                userName.setText("Aruna");
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

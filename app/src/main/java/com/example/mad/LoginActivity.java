@@ -76,10 +76,11 @@ public class LoginActivity extends AppCompatActivity {
         lblPwdReset.setTextColor(getResources().getColor(R.color.darkPink));
     }
     void loginUsingFB(String txtPwd,String txtUserName){
-        FirebaseAuthClass.initLogin(txtUserName, txtPwd, new FirebaseAuthClass.FirestoreCallback() {
+        FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
+        firebaseAuthClass.initLogin(txtUserName, txtPwd, new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {
-                autoLoginEnable(txtUserName,txtPwd);
+              //  autoLoginEnable(txtUserName,txtPwd);
                 SystemOprations.toGoNewPage(LoginActivity.this,HomeActivity.class);
                 SystemOprations.showMessage("Login successful", "Login successful", LoginActivity.this, 1);
             }
@@ -97,7 +98,8 @@ public class LoginActivity extends AppCompatActivity {
         if(txtUserName.matches(SystemOprations.emailPattern)){
             showPrograssBar();
 
-            FirebaseAuthClass.resetPwd(txtUserName, new FirebaseAuthClass.FirestoreCallback() {
+            FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
+           firebaseAuthClass.resetPwd(txtUserName, new FirebaseAuthClass.FirestoreCallback() {
                 @Override
                 public void onSuccess() {
                     SystemOprations.showMessage("We will send password reset link to your email.", "password reset", LoginActivity.this, 1);
@@ -136,7 +138,8 @@ public class LoginActivity extends AppCompatActivity {
         listAutoLogin.put("isAutoLogin", true);
         listAutoLogin.put("RegDate", SystemOprations.curretDate());
 
-       FirebaseAuthClass. intFirebaseFireStore(listAutoLogin, "Auto_Login", Settings.Secure.getString(LoginActivity.this.getContentResolver(), Settings.Secure.ANDROID_ID), new FirebaseAuthClass.FirestoreCallback() {
+        FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
+        firebaseAuthClass.intFirebaseFireStore(listAutoLogin, "Auto_Login", Settings.Secure.getString(LoginActivity.this.getContentResolver(), Settings.Secure.ANDROID_ID), new FirebaseAuthClass.FirestoreCallback() {
            @Override
            public void onSuccess() {
 

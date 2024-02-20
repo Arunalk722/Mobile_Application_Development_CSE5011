@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -16,13 +17,14 @@ import java.util.Objects;
 
 public class FirebaseAuthClass {
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public interface FirestoreCallback {
         void onSuccess();
         void onFailure(Exception error);
     }
-    static void intFirebaseFireStore(Map<String, Object> mapData, String collectionName, String docName, FirestoreCallback callback) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+     void intFirebaseFireStore(Map<String, Object> mapData, String collectionName, String docName, FirestoreCallback callback) {
+      //  FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(collectionName).document(docName).set(mapData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -40,7 +42,7 @@ public class FirebaseAuthClass {
                 });
     }
 
-    static  void initFirebaseAuth(String uN,String pwd,FirestoreCallback callback){
+     void initFirebaseAuth(String uN,String pwd,FirestoreCallback callback){
         FirebaseAuth gAuth;
         gAuth = FirebaseAuth.getInstance();
 
@@ -57,7 +59,7 @@ public class FirebaseAuthClass {
         });
     }
 
-    static  void initLogin(String userName,String pwd,FirestoreCallback callback){
+      void initLogin(String userName,String pwd,FirestoreCallback callback){
         FirebaseAuth gAuth = FirebaseAuth.getInstance();
         gAuth.signInWithEmailAndPassword(userName,pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
@@ -72,7 +74,7 @@ public class FirebaseAuthClass {
         });
     }
 
-    static  void resetPwd(String txtUserName,FirestoreCallback callback){
+     void resetPwd(String txtUserName,FirestoreCallback callback){
         FirebaseAuth gAuth = FirebaseAuth.getInstance();
         gAuth.sendPasswordResetEmail(txtUserName).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -87,8 +89,8 @@ public class FirebaseAuthClass {
         });
     }
 
-    static void getNextId(String collectionName, NextIdCallback callback) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+     void getNextId(String collectionName, NextIdCallback callback) {
+       // FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(collectionName).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -108,4 +110,20 @@ public class FirebaseAuthClass {
 
         void onError(Exception e);
     }
+
+    void checkUserCredentials(String userName){
+        db.collection("User_List").document(userName).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.exists()){
+                    UserInfo userInfo = new UserInfo();
+                    userInfo.setUserName(documentSnapshot.getString("email"));
+                    userInfo.setAddress(documentSnapshot.getString("address"));
+                    userInfo.setUserType(documentSnapshot.getString("UserTypeIs"));
+                    userInfo.setPhoneNo(documentSnapshot.getString("1234567891"));
+                }
+            }
+        });
+    }
+
 }
