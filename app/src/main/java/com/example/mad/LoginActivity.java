@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuthClass.initLogin(txtUserName, txtPwd, new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {
-              //  autoLoginEnable(txtUserName,txtPwd);
+                autoLoginEnable(txtUserName,txtPwd);
                 SystemOprations.toGoNewPage(LoginActivity.this,HomeActivity.class);
                 SystemOprations.showMessage("Login successful", "Login successful", LoginActivity.this, 1);
             }

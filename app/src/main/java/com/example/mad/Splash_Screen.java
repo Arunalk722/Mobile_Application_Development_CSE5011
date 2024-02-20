@@ -26,10 +26,11 @@ public class Splash_Screen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                autoLoginEnable();
+              //  autoLoginEnable();
+                SystemOprations.toGoNewPage(Splash_Screen.this,HomeActivity.class);
                 finish();
             }
-        }, 1200);
+        }, 5);
     }
 
     public void autoLoginEnable() {
