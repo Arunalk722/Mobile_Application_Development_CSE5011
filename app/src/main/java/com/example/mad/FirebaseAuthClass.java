@@ -111,19 +111,27 @@ public class FirebaseAuthClass {
         void onError(Exception e);
     }
 
-    void checkUserCredentials(String userName){
-        db.collection("User_List").document(userName).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    void scanProductBaseOn(String productId, ScanProductCallback callback) {
+        db.collection("Product_List").document(productId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.exists()){
-                    UserInfo userInfo = new UserInfo();
-                    userInfo.setUserName(documentSnapshot.getString("email"));
-                    userInfo.setAddress(documentSnapshot.getString("address"));
-                    userInfo.setUserType(documentSnapshot.getString("UserTypeIs"));
-                    userInfo.setPhoneNo(documentSnapshot.getString("1234567891"));
+                if (documentSnapshot.exists()) {
+                    callback.onScanProductSuccess(documentSnapshot);
+                } else {
+                    callback.onScanProductFailure(new Exception("Document does not exist"));
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callback.onScanProductFailure(e);
             }
         });
     }
+    public interface ScanProductCallback {
+        void onScanProductSuccess(DocumentSnapshot documentSnapshot);
+        void onScanProductFailure(Exception e);
+    }
+
 
 }

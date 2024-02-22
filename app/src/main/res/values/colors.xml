@@ -6,4 +6,7 @@
     <color name="darkPink">#AA336A</color>
     <color name="loginBlue">#00008B</color>
     <color name="registerPurple">#5c00e6</color>
+    <color name="clearRed">#FF5733</color>
+    <color name="greenSave">#1A8F00</color>
+
 </resources>
