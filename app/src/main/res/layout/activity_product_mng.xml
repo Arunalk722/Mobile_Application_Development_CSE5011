@@ -32,8 +32,8 @@
                     android:text="Product Manage"
                     android:textSize="30dp"
                     app:cornerRadius="20dp" />
-            </com.google.android.material.appbar.MaterialToolbar>
 
+            </com.google.android.material.appbar.MaterialToolbar>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,13 +67,13 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="Find"/>
+
                     <ProgressBar
                         android:id="@+id/prgFind"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:visibility="visible"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_gravity="center"
+                        android:visibility="visible" />
 
                     <EditText
                         android:id="@+id/txtProductName"
@@ -115,35 +115,15 @@
                         android:inputType="datetime"
                         android:padding="15dp"
                         android:layout_marginTop="20dp" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="90dp"
-                app:cardCornerRadius="30dp"
-                app:cardElevation="20dp"
-                android:background="@drawable/custome_textbox">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="0dp"
-                    android:padding="10dp">
                     <Button
                         android:id="@+id/btnSelectImage"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
                         android:backgroundTint="@color/purple"
                         android:text="Select"
                         android:drawableLeft="@drawable/clear"
-                        android:textSize="20dp"
+                        android:textSize="15dp"
                         app:cornerRadius="20dp" />
                     <ImageView
                         android:id="@+id/imgViewPrImg"
@@ -151,24 +131,6 @@
                         android:layout_height="200dp"
                         android:layout_gravity="center"
                         android:scaleType="fitCenter" />
-
-                    <ProgressBar
-                        android:id="@+id/prgImageUpload"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:visibility="visible"
-                        android:layout_height="wrap_content"/>
-
-                    <Button
-                        android:id="@+id/btnUploadImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="0dp"
-                        android:backgroundTint="@color/greenSave"
-                        android:text="Upload"
-                        android:drawableLeft="@drawable/update2"
-                        android:textSize="20dp"
-                        app:cornerRadius="20dp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
