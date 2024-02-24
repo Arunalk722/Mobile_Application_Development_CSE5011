@@ -1,5 +1,7 @@
 package com.example.mad;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,9 +25,27 @@ public class FirebaseAuthClass {
         void onSuccess();
         void onFailure(Exception error);
     }
-     void intFirebaseFireStore(Map<String, Object> mapData, String collectionName, String docName, FirestoreCallback callback) {
+     void saveToFireStore(Map<String, Object> mapData, String collectionName, String docName, FirestoreCallback callback) {
       //  FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(collectionName).document(docName).set(mapData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        // Call the onSuccess method of the callback
+                        callback.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Call the onFailure method of the callback
+                        callback.onFailure(e);
+                    }
+                });
+    }
+    void updateFirebaseFirestore(Map<String, Object> updateData, String collectionName, String docName, FirestoreCallback callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(collectionName).document(docName).update(updateData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -59,12 +79,14 @@ public class FirebaseAuthClass {
         });
     }
 
-      void initLogin(String userName,String pwd,FirestoreCallback callback){
+      void initLogin(String userName, String pwd, Context context, FirestoreCallback callback){
         FirebaseAuth gAuth = FirebaseAuth.getInstance();
         gAuth.signInWithEmailAndPassword(userName,pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
               callback.onSuccess();
+              UserInfo userInfo=new UserInfo();
+              userInfo.getUserInfo(userName,context);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -111,8 +133,8 @@ public class FirebaseAuthClass {
         void onError(Exception e);
     }
 
-    void scanProductBaseOn(String productId, ScanProductCallback callback) {
-        db.collection("Product_List").document(productId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    void scanFromFirestore(String documentID,String collectionName, ScanProductCallback callback) {
+        db.collection(collectionName).document(documentID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {

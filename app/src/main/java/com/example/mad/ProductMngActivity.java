@@ -39,7 +39,7 @@ public class ProductMngActivity extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 22;
     private ImageView imageView;
     private StorageReference storageRef;
-    Uri defaultProductImage = Uri.parse("https://firebasestorage.googleapis.com/v0/b/mobile-app-dev-icbt.appspot.com/o/images%2Fcake-candles.svg?alt=media&token=8e88f899-80ed-459e-9df4-3b3b52946ed8");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -212,7 +212,7 @@ public class ProductMngActivity extends AppCompatActivity {
     }
 
     void productFind(String productId) {
-        firebaseAuthClass.scanProductBaseOn(productId, new FirebaseAuthClass.ScanProductCallback() {
+        firebaseAuthClass.scanFromFirestore(productId, "Product_List",new FirebaseAuthClass.ScanProductCallback() {
             @Override
             public void onScanProductSuccess(DocumentSnapshot documentSnapshot) {
                 proIdTxt.setText(documentSnapshot.getString("proId").toString());
@@ -262,7 +262,7 @@ public class ProductMngActivity extends AppCompatActivity {
         productInfo.put("Discount", Double.parseDouble(proDisTxt.getText().toString()));
         productInfo.put("DateTime", SystemOprations.curretDate().toString());
         productInfo.put("imagePath", imageUrl);
-        firebaseAuthClass.intFirebaseFireStore(productInfo, "Product_List", productId, new FirebaseAuthClass.FirestoreCallback() {
+        firebaseAuthClass.saveToFireStore(productInfo, "Product_List", productId, new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {
                 SystemOprations.showMessage("New Product save successful.\nproduct Id " + productId, "New Product save", ProductMngActivity.this, 1);

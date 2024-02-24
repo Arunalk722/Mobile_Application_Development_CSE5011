@@ -26,9 +26,11 @@ public class Splash_Screen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-              //  autoLoginEnable();
-                SystemOprations.toGoNewPage(Splash_Screen.this,HomeActivity.class);
-                finish();
+                  autoLoginEnable();
+            ///    SystemOprations.toGoNewPage(Splash_Screen.this,HomeActivity.class);
+             //   finish();
+            //    getUserInfo("arunalk722@hotmail.com");
+
             }
         }, 5);
     }
@@ -43,17 +45,18 @@ public class Splash_Screen extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
-                            String username = documentSnapshot.getString("email");
+                            String userName = documentSnapshot.getString("email");
                             String passwordHash = documentSnapshot.getString("password");
                             boolean isAutoLogin = documentSnapshot.getBoolean("isAutoLogin");
                             if (isAutoLogin == true) {
                                 EncryptingPwd encryptingPwd = new EncryptingPwd();
                                 FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
-                               firebaseAuthClass.initLogin(username, encryptingPwd.decrypt(passwordHash), new FirebaseAuthClass.FirestoreCallback() {
+                               firebaseAuthClass.initLogin(userName, encryptingPwd.decrypt(passwordHash),Splash_Screen.this, new FirebaseAuthClass.FirestoreCallback() {
 
                                             @Override
                                             public void onSuccess() {
-                                                SystemOprations.toGoNewPage(Splash_Screen.this,HomeActivity.class);
+
+
                                             }
 
                                             @Override
@@ -85,4 +88,25 @@ public class Splash_Screen extends AppCompatActivity {
         SystemOprations.toGoNewPage(Splash_Screen.this,WelcomeActivity.class);
     }
 
+   /* void getUserInfo(String Name){
+        UserInfo userInfo = new UserInfo();
+        FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
+        firebaseAuthClass.scanFromFirestore(Name,"User_List", new FirebaseAuthClass.ScanProductCallback() {
+            @Override
+            public void onScanProductSuccess(DocumentSnapshot documentSnapshot) {
+                userInfo.setUserName(documentSnapshot.getString("email").toString());
+                userInfo.setUserType(documentSnapshot.getString("UserTypeIs").toString());
+                userInfo.setAddress(documentSnapshot.getString("address").toString());
+                userInfo. setPhoneNo(documentSnapshot.getString("phoneNo").toString());
+                userInfo. setOrderGUID(SystemOprations.makeGUID());
+                     SystemOprations.showMessage(userInfo.getOrderGUID(), "error on product saving", Splash_Screen.this, 3);
+
+            }
+
+            @Override
+            public void onScanProductFailure(Exception e) {
+                SystemOprations.showMessage(e.toString(), "error on product saving", Splash_Screen.this, 3);
+            }
+        });
+    }*/
 }

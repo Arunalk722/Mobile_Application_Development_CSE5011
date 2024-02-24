@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,6 +18,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         uiInit();
+
     }
 
     void uiInit(){
@@ -30,12 +32,12 @@ public class HomeActivity extends AppCompatActivity {
         orderBtn=(Button) findViewById(R.id.btnOrder);
         listOrderBtn=(Button) findViewById(R.id.btnListOrder);
 
-        UserInfo userInfo = new UserInfo();
-        if(userInfo.getUserType()=="M"){
-            pmCrd.setVisibility(View.INVISIBLE);
+        if(UserInfo.getUserType().equals("A")||UserInfo.getUserType().equals("a")){
+            pmCrd.setVisibility(View.VISIBLE);
         }else{
-
+            pmCrd.setVisibility(View.INVISIBLE);
         }
+
         productManageBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -61,6 +63,7 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                SystemOprations.showMessage(UserInfo.getUserType(), "",HomeActivity.this, 3);
                 SystemOprations.toGoNewPage(HomeActivity.this,ViewOrderActivity.class);
             }
         });

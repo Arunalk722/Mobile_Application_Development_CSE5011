@@ -77,11 +77,10 @@ public class LoginActivity extends AppCompatActivity {
     }
     void loginUsingFB(String txtPwd,String txtUserName){
         FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
-        firebaseAuthClass.initLogin(txtUserName, txtPwd, new FirebaseAuthClass.FirestoreCallback() {
+        firebaseAuthClass.initLogin(txtUserName, txtPwd,LoginActivity.this, new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {
                 autoLoginEnable(txtUserName,txtPwd);
-                SystemOprations.toGoNewPage(LoginActivity.this,HomeActivity.class);
                 SystemOprations.showMessage("Login successful", "Login successful", LoginActivity.this, 1);
             }
 
@@ -139,10 +138,11 @@ public class LoginActivity extends AppCompatActivity {
         listAutoLogin.put("RegDate", SystemOprations.curretDate());
 
         FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
-        firebaseAuthClass.intFirebaseFireStore(listAutoLogin, "Auto_Login", Settings.Secure.getString(LoginActivity.this.getContentResolver(), Settings.Secure.ANDROID_ID), new FirebaseAuthClass.FirestoreCallback() {
+        firebaseAuthClass.saveToFireStore(listAutoLogin, "Auto_Login", Settings.Secure.getString(LoginActivity.this.getContentResolver(), Settings.Secure.ANDROID_ID), new FirebaseAuthClass.FirestoreCallback() {
            @Override
            public void onSuccess() {
-
+               UserInfo userInfo=new UserInfo();
+               userInfo.getUserInfo(userName,LoginActivity.this);
            }
 
            @Override

@@ -159,7 +159,7 @@ public class SignInActivity extends AppCompatActivity {
         userList.put("RegDate", SystemOprations.curretDate());
 
         FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
-        firebaseAuthClass.intFirebaseFireStore(userList, "User_List", uN.toString().toString(), new FirebaseAuthClass.FirestoreCallback() {
+        firebaseAuthClass.saveToFireStore(userList, "User_List", uN.toString().toString(), new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {
                 SystemOprations.showMessage("Sign in Successful using " + uN, "Sign in Successful", SignInActivity.this, 1);

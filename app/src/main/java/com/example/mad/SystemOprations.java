@@ -9,6 +9,7 @@ import android.content.Intent;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 public class SystemOprations {
 
@@ -57,6 +58,9 @@ public class SystemOprations {
             dateTime = now.format(formatter);
         }
         return  dateTime;
+    }
+    static String makeGUID(){
+        return  String.valueOf(UUID.randomUUID());
     }
 
 }

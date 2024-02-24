@@ -33,7 +33,6 @@
     android:layout_height="wrap_content"
     android:id="@+id/lstProducts"
     android:layout_below="@+id/header">
-
 </ListView>
 
 </RelativeLayout>
