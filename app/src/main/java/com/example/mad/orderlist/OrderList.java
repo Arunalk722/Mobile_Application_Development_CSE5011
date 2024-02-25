@@ -9,8 +9,9 @@ public class OrderList {
     private double rate;
     private double qty;
     private double total;
+    private  String orderUID;
 
-    private double discount; public OrderList(String orderUser,String productId, boolean isApproved, double rate, double qty, double total, String orderId, double discount,String pName) {
+    private double discount; public OrderList(String orderUser,String productId, boolean isApproved, double rate, double qty, double total, String orderId, double discount,String pName,String orderUID) {
         this.orderUser = orderUser;
         this.productId = productId;
         this.isApproved = isApproved;
@@ -20,6 +21,7 @@ public class OrderList {
         this.total = total;
         this.discount = discount;
         this.pName = pName;
+        this.orderUID = orderUID;
     }
 
     // Getters
@@ -48,4 +50,5 @@ public class OrderList {
     public double getDiscount() {
         return discount;
     }
+    public  String getOrderUID(){return  orderUID;}
 }

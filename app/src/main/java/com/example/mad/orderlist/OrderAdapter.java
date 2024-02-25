@@ -77,15 +77,15 @@ public class OrderAdapter  extends ArrayAdapter<OrderList> {
             @Override
             public void onClick(View v) {
                 Toast.makeText(mContext,currentOrder.getOrderId(),Toast.LENGTH_LONG);
-                updateStatusOnOrder(true, currentOrder.getOrderId());
+                updateStatusOnOrder(true, currentOrder.getOrderUID());
             }
         });
 
         declineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"ARUNAS",Toast.LENGTH_LONG);
-                updateStatusOnOrder(false, currentOrder.getOrderId());
+                Toast.makeText(mContext,currentOrder.getOrderUID(),Toast.LENGTH_LONG);
+                updateStatusOnOrder(false, currentOrder.getOrderUID());
             }
         });
 
@@ -118,11 +118,11 @@ public class OrderAdapter  extends ArrayAdapter<OrderList> {
         return listItemView;
     }
 
-    void updateStatusOnOrder(boolean isApprove,String orderId){
+    void updateStatusOnOrder(boolean isApprove,String orderUid){
         Map<String,Object> updateStatus = new HashMap<>();
         updateStatus.put("IsApprove",isApprove);
         FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
-        firebaseAuthClass.updateFirebaseFirestore(updateStatus, "Product_List", orderId, new FirebaseAuthClass.FirestoreCallback() {
+        firebaseAuthClass.updateFirebaseFirestore(updateStatus,  "f64bf3a9-ff1e-4cd9-af4a-cf8743373995","Product_List", new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {
                 if(isApprove==true){

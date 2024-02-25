@@ -101,8 +101,10 @@ public class ProductAdapter extends ArrayAdapter<Products> {
     }
     void makeOrder(String productId,double sellQty,double discount,double total,CardView layout,double newQty,double rate,String pName){
 
+        String newOrderId = SystemOprations.makeGUID();
         Map<String, Object> makeOrder = new HashMap<>();
         UserInfo userInfo = new UserInfo();
+        makeOrder.put("OrderUID",newOrderId);
         makeOrder.put("OrderID",userInfo.getOrderGUID());
         makeOrder.put("UserName",userInfo.getUserName());
         makeOrder.put("proId", productId);
@@ -112,8 +114,9 @@ public class ProductAdapter extends ArrayAdapter<Products> {
         makeOrder.put("Total",total);
         makeOrder.put("IsApprove",false);
         makeOrder.put("productName",pName);
+
         makeOrder.put("DateTime", SystemOprations.curretDate());
-        firebaseAuthClass.saveToFireStore(makeOrder, "Order_List", SystemOprations.makeGUID(), new FirebaseAuthClass.FirestoreCallback() {
+        firebaseAuthClass.saveToFireStore(makeOrder, "Order_List", newOrderId, new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {
                 updateProductQuantity(productId,newQty,layout);

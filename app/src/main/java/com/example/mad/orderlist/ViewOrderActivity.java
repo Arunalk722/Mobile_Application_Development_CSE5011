@@ -47,6 +47,7 @@ public class ViewOrderActivity extends AppCompatActivity {
                             String orderUser = document.getString("UserName");
                             String productId = document.getString("proId");
                             String productName = document.getString("productName");
+                            String orderUID = document.getString("OrderUID");
                             boolean isApproved = document.getBoolean("IsApprove");
                             String orderId = document.getString("OrderID");
                             double rate = document.getDouble("Rate");
@@ -54,7 +55,7 @@ public class ViewOrderActivity extends AppCompatActivity {
                             double total = document.getDouble("Total");
                             double discount = document.getDouble("Discount");
 
-                            OrderList orders = new OrderList(orderUser,productId,isApproved,rate,qty,total,orderId,discount,productName);
+                            OrderList orders = new OrderList(orderUser,productId,isApproved,rate,qty,total,orderId,discount,productName,orderUID);
                             orderLists.add(orders);
                         }
                         orderAdapter.notifyDataSetChanged();
@@ -77,12 +78,13 @@ public class ViewOrderActivity extends AppCompatActivity {
                             String productName = document.getString("productName");
                             boolean isApproved = document.getBoolean("IsApprove");
                             String orderId = document.getString("OrderID");
+                            String orderUID = document.getString("OrderUID");
                             double rate = document.getDouble("Rate");
                             double qty = document.getDouble("SellQty");
                             double total = document.getDouble("Total");
                             double discount = document.getDouble("Discount");
 
-                            OrderList orders = new OrderList(orderUser,productId,isApproved,rate,qty,total,orderId,discount,productName);
+                            OrderList orders = new OrderList(orderUser,productId,isApproved,rate,qty,total,orderId,discount,productName,orderUID);
                             orderLists.add(orders);
                         }
                         orderAdapter.notifyDataSetChanged();
