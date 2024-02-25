@@ -1,12 +1,19 @@
-package com.example.mad;
+package com.example.mad.otherwidget;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.mad.R;
+import com.example.mad.makeorder.ListOfProductActivity;
+import com.example.mad.makeorder.MakeOrderActivity;
+import com.example.mad.orderlist.ViewOrderActivity;
+import com.example.mad.productmanage.ProductMngActivity;
+import com.example.mad.systeminfos.SystemOprations;
+import com.example.mad.systeminfos.UserInfo;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -42,29 +49,28 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                SystemOprations.toGoNewPage(HomeActivity.this,ProductMngActivity.class);
+                SystemOprations.toGoNewPage(HomeActivity.this, ProductMngActivity.class);
             }
         });
         listProductBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                SystemOprations.toGoNewPage(HomeActivity.this,ListOfProductActivity.class);
+                SystemOprations.toGoNewPage(HomeActivity.this, ListOfProductActivity.class);
             }
         });
         orderBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                SystemOprations.toGoNewPage(HomeActivity.this,MakeOrderActivity.class);
+                SystemOprations.toGoNewPage(HomeActivity.this, MakeOrderActivity.class);
             }
         });
         listOrderBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                SystemOprations.showMessage(UserInfo.getUserType(), "",HomeActivity.this, 3);
-                SystemOprations.toGoNewPage(HomeActivity.this,ViewOrderActivity.class);
+                SystemOprations.toGoNewPage(HomeActivity.this, ViewOrderActivity.class);
             }
         });
     }

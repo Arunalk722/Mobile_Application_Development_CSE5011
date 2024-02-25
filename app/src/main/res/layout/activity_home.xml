@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/bg_colors"
-    tools:context=".HomeActivity">
+    tools:context=".otherwidget.HomeActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

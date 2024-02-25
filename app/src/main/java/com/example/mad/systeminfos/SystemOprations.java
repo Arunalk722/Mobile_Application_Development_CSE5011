@@ -1,4 +1,4 @@
-package com.example.mad;
+package com.example.mad.systeminfos;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
@@ -7,13 +7,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import com.example.mad.R;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class SystemOprations {
 
-    static String emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
+    public static String emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
     public  static  void toGoNewPage(Context context, Class<?>newPage){
         Intent intent = new Intent(context, newPage);
         context.startActivity(intent);
@@ -59,7 +61,7 @@ public class SystemOprations {
         }
         return  dateTime;
     }
-    static String makeGUID(){
+    public static String makeGUID(){
         return  String.valueOf(UUID.randomUUID());
     }
 

@@ -1,20 +1,21 @@
-package com.example.mad;
+package com.example.mad.otherwidget;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 
+import com.example.mad.R;
+import com.example.mad.WelcomeActivity;
+import com.example.mad.systeminfos.EncryptingPwd;
+import com.example.mad.systeminfos.FirebaseAuthClass;
+import com.example.mad.systeminfos.SystemOprations;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.Map;
 
 public class Splash_Screen extends AppCompatActivity {
 
@@ -32,7 +33,7 @@ public class Splash_Screen extends AppCompatActivity {
             //    getUserInfo("arunalk722@hotmail.com");
 
             }
-        }, 5);
+        }, 1);
     }
 
     public void autoLoginEnable() {
@@ -61,7 +62,7 @@ public class Splash_Screen extends AppCompatActivity {
 
                                             @Override
                                             public void onFailure(Exception error) {
-                                                SystemOprations.toGoNewPage(Splash_Screen.this,WelcomeActivity.class);
+                                                SystemOprations.toGoNewPage(Splash_Screen.this, WelcomeActivity.class);
                                             }
                                         });
 

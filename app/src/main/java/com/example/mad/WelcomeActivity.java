@@ -2,11 +2,13 @@ package com.example.mad;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.mad.otherwidget.LoginActivity;
+import com.example.mad.otherwidget.SignInActivity;
+import com.example.mad.systeminfos.SystemOprations;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -20,7 +22,7 @@ public class WelcomeActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SystemOprations.toGoNewPage(WelcomeActivity.this,SignInActivity.class);
+                SystemOprations.toGoNewPage(WelcomeActivity.this, SignInActivity.class);
             }
         });
         logIn = (TextView)findViewById(R.id.lblLogin);
@@ -28,7 +30,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // SystemOprations.toGoNewPage(WelcomeActivity.this,SignInActivity.class);
-                SystemOprations.toGoNewPage(WelcomeActivity.this,LoginActivity.class);
+                SystemOprations.toGoNewPage(WelcomeActivity.this, LoginActivity.class);
             }
         });
     }

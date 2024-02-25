@@ -1,11 +1,11 @@
-package com.example.mad;
+package com.example.mad.otherwidget;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import java.lang.annotation.Native;
+import com.example.mad.R;
+import com.example.mad.systeminfos.SystemOprations;
 
 public class MainActivity extends AppCompatActivity {
 

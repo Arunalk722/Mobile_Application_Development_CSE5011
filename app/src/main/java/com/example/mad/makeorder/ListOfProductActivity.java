@@ -1,19 +1,16 @@
-package com.example.mad;
+package com.example.mad.makeorder;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.mad.R;
+import com.example.mad.makeorder.ProductAdapter;
+import com.example.mad.makeorder.Products;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 
 public class ListOfProductActivity extends AppCompatActivity {

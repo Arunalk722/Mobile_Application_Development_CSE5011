@@ -1,4 +1,4 @@
-package com.example.mad;
+package com.example.mad.systeminfos;
 import android.os.Build;
 import java.security.Key;
 import java.util.Base64;

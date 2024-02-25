@@ -1,8 +1,7 @@
-package com.example.mad;
+package com.example.mad.systeminfos;
 import android.content.Context;
-import android.widget.Toast;
 
-import java.util.UUID;
+import com.example.mad.otherwidget.HomeActivity;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 public class UserInfo {

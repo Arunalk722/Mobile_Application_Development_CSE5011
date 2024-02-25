@@ -18,39 +18,39 @@
         android:theme="@style/Theme.MAD"
         tools:targetApi="31">
         <activity
-            android:name=".ViewOrderActivity"
+            android:name=".orderlist.ViewOrderActivity"
             android:exported="false" />
         <activity
-            android:name=".ListOfProductActivity"
+            android:name=".makeorder.ListOfProductActivity"
             android:exported="false" />
         <activity
-            android:name=".MakeOrderActivity"
+            android:name=".makeorder.MakeOrderActivity"
             android:exported="false" />
         <activity
-            android:name=".ProductMngActivity"
+            android:name=".productmanage.ProductMngActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".otherwidget.HomeActivity"
             android:exported="false"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.MAD.NoActionBar" />
         <activity
-            android:name=".PwdResetActivity"
+            android:name=".otherwidget.PwdResetActivity"
             android:exported="false" />
         <activity
             android:name=".WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".otherwidget.SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".otherwidget.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".Splash_Screen"
+            android:name=".otherwidget.Splash_Screen"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".otherwidget.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

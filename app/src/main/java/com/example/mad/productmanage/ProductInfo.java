@@ -1,4 +1,4 @@
-package com.example.mad;
+package com.example.mad.productmanage;
 
 public class ProductInfo {
     private String productName = null;

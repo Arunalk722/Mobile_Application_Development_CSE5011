@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/bg_colors"
-    tools:context=".Splash_Screen">
+    tools:context=".otherwidget.Splash_Screen">
 
     <ScrollView
         android:layout_width="match_parent"

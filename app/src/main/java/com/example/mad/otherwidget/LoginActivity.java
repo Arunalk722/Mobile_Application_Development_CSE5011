@@ -1,4 +1,4 @@
-package com.example.mad;
+package com.example.mad.otherwidget;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
@@ -9,6 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.example.mad.R;
+import com.example.mad.systeminfos.EncryptingPwd;
+import com.example.mad.systeminfos.FirebaseAuthClass;
+import com.example.mad.systeminfos.SystemOprations;
+import com.example.mad.systeminfos.UserInfo;
+
 import java.util.HashMap;
 import java.util.Map;
 

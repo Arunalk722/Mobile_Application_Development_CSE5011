@@ -8,5 +8,5 @@
     <color name="registerPurple">#5c00e6</color>
     <color name="clearRed">#FF5733</color>
     <color name="greenSave">#1A8F00</color>
-
+    <color name="transparent">#00FFFFFF</color>
 </resources>

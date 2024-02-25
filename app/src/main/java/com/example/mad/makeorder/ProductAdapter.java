@@ -1,4 +1,4 @@
-package com.example.mad;
+package com.example.mad.makeorder;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import com.bumptech.glide.Glide;
+import com.example.mad.systeminfos.FirebaseAuthClass;
+import com.example.mad.R;
+import com.example.mad.systeminfos.SystemOprations;
+import com.example.mad.systeminfos.UserInfo;
+
 import org.checkerframework.checker.nullness.qual.NonNull;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -89,12 +94,12 @@ public class ProductAdapter extends ArrayAdapter<Products> {
                 double newQty = (stockQty)-(sellQty);
                 double totalDiscount = discount*sellQty;
                 double total = (sellQty*price)-totalDiscount;
-                makeOrder(productId.getText().toString(),sellQty,totalDiscount,total,orderItem,newQty,price);
+                makeOrder(productId.getText().toString(),sellQty,totalDiscount,total,orderItem,newQty,price,productName.getText().toString());
             }
         });
         return listItemView;
     }
-    void makeOrder(String productId,double sellQty,double discount,double total,CardView layout,double newQty,double rate){
+    void makeOrder(String productId,double sellQty,double discount,double total,CardView layout,double newQty,double rate,String pName){
 
         Map<String, Object> makeOrder = new HashMap<>();
         UserInfo userInfo = new UserInfo();
@@ -106,7 +111,8 @@ public class ProductAdapter extends ArrayAdapter<Products> {
         makeOrder.put("Discount",discount);
         makeOrder.put("Total",total);
         makeOrder.put("IsApprove",false);
-        makeOrder.put("DateTime",SystemOprations.curretDate());
+        makeOrder.put("productName",pName);
+        makeOrder.put("DateTime", SystemOprations.curretDate());
         firebaseAuthClass.saveToFireStore(makeOrder, "Order_List", SystemOprations.makeGUID(), new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {

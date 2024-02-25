@@ -1,4 +1,4 @@
-package com.example.mad;
+package com.example.mad.makeorder;
 
 public class Products {
     private String productId;

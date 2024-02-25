@@ -1,9 +1,10 @@
-package com.example.mad;
+package com.example.mad.systeminfos;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.example.mad.systeminfos.UserInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -15,7 +16,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class FirebaseAuthClass {
 
@@ -25,7 +25,7 @@ public class FirebaseAuthClass {
         void onSuccess();
         void onFailure(Exception error);
     }
-     void saveToFireStore(Map<String, Object> mapData, String collectionName, String docName, FirestoreCallback callback) {
+     public void saveToFireStore(Map<String, Object> mapData, String collectionName, String docName, FirestoreCallback callback) {
       //  FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(collectionName).document(docName).set(mapData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -43,7 +43,7 @@ public class FirebaseAuthClass {
                     }
                 });
     }
-    void updateFirebaseFirestore(Map<String, Object> updateData, String collectionName, String docName, FirestoreCallback callback) {
+    public void updateFirebaseFirestore(Map<String, Object> updateData, String collectionName, String docName, FirestoreCallback callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(collectionName).document(docName).update(updateData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -62,7 +62,7 @@ public class FirebaseAuthClass {
                 });
     }
 
-     void initFirebaseAuth(String uN,String pwd,FirestoreCallback callback){
+     public void initFirebaseAuth(String uN, String pwd, FirestoreCallback callback){
         FirebaseAuth gAuth;
         gAuth = FirebaseAuth.getInstance();
 
@@ -79,7 +79,7 @@ public class FirebaseAuthClass {
         });
     }
 
-      void initLogin(String userName, String pwd, Context context, FirestoreCallback callback){
+      public void initLogin(String userName, String pwd, Context context, FirestoreCallback callback){
         FirebaseAuth gAuth = FirebaseAuth.getInstance();
         gAuth.signInWithEmailAndPassword(userName,pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
@@ -96,7 +96,7 @@ public class FirebaseAuthClass {
         });
     }
 
-     void resetPwd(String txtUserName,FirestoreCallback callback){
+     public void resetPwd(String txtUserName, FirestoreCallback callback){
         FirebaseAuth gAuth = FirebaseAuth.getInstance();
         gAuth.sendPasswordResetEmail(txtUserName).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -111,7 +111,7 @@ public class FirebaseAuthClass {
         });
     }
 
-     void getNextId(String collectionName, NextIdCallback callback) {
+     public void getNextId(String collectionName, NextIdCallback callback) {
        // FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(collectionName).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -127,13 +127,14 @@ public class FirebaseAuthClass {
                         callback.onError(e);
                     }
                 });
-    }interface NextIdCallback {
+    }
+    public interface NextIdCallback {
         void onNextId(int nextId);
 
         void onError(Exception e);
     }
 
-    void scanFromFirestore(String documentID,String collectionName, ScanProductCallback callback) {
+    public void scanFromFirestore(String documentID, String collectionName, ScanProductCallback callback) {
         db.collection(collectionName).document(documentID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
