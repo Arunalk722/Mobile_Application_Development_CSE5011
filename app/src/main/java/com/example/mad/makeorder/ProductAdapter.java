@@ -115,8 +115,9 @@ public class ProductAdapter extends ArrayAdapter<Products> {
     }
 
     void makeOrder(String productId, double sellQty, double discount, double total, CardView layout, double newQty, double rate, String pName) {
+        try{
 
-        String newOrderId = SystemOprations.makeGUID();
+            String newOrderId = SystemOprations.makeGUID();
         Map<String, Object> makeOrder = new HashMap<>();
         UserInfo userInfo = new UserInfo();
         makeOrder.put("OrderUID", newOrderId);
@@ -143,8 +144,13 @@ public class ProductAdapter extends ArrayAdapter<Products> {
             }
         });
     }
+       catch (Exception ex){
+        Toast.makeText(mContext,ex.getMessage(),Toast.LENGTH_LONG).show();
+    }
+    }
 
     void updateProductQuantity(String productId, double newQuantity, CardView layout) {
+        try{
         Map<String, Object> updateInfo = new HashMap<>();
         updateInfo.put("Quantity", newQuantity);
 
@@ -160,5 +166,9 @@ public class ProductAdapter extends ArrayAdapter<Products> {
                 layout.setVisibility(View.VISIBLE);
             }
         });
+        }
+        catch (Exception ex){
+            Toast.makeText(mContext,ex.getMessage(),Toast.LENGTH_LONG).show();
+        }
     }
 }

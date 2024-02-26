@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class SignInActivity extends AppCompatActivity {
     TextView login;
-    EditText userName, pwd1, pwd2, phoneNo,address;
+    EditText userName, pwd1, pwd2, phoneNo, address;
     Button reg;
     ProgressBar signInProgressBar;
     String emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
@@ -100,7 +100,7 @@ public class SignInActivity extends AppCompatActivity {
 
                     @Override
                     public void onNegativeButtonClicked() {
-                        Toast.makeText(SignInActivity.this,"not confirm",Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignInActivity.this, "not confirm", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -126,22 +126,26 @@ public class SignInActivity extends AppCompatActivity {
         hideProBar();
     }
 
-    void signUpGoogle(String uN, String pwd, String phone,String address) {
+    void signUpGoogle(String uN, String pwd, String phone, String address) {
+        try {
+            FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
+            firebaseAuthClass.initFirebaseAuth(uN, pwd, new FirebaseAuthClass.FirestoreCallback() {
+                @Override
+                public void onSuccess() {
+                    firebaseDB(uN, phone, address);
+                    resetError();
+                }
 
-        FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
-        firebaseAuthClass.initFirebaseAuth(uN, pwd, new FirebaseAuthClass.FirestoreCallback() {
-            @Override
-            public void onSuccess() {
-                firebaseDB(uN, phone,address);
-                resetError();
-            }
+                @Override
+                public void onFailure(Exception error) {
+                    SystemOprations.showMessage(uN + error.getMessage(), "Sign in failed", SignInActivity.this, 2);
+                    hideProBar();
+                }
+            });
 
-            @Override
-            public void onFailure(Exception error) {
-                SystemOprations.showMessage(uN + error.getMessage(), "Sign in failed", SignInActivity.this, 2);
-                hideProBar();
-            }
-        });
+        } catch (Exception ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     void resetError() {
@@ -151,42 +155,46 @@ public class SignInActivity extends AppCompatActivity {
         phoneNo.setError(null);
     }
 
-    void firebaseDB(String uN,String phoneNo,String address){
+    void firebaseDB(String uN, String phoneNo, String address) {
+        try {
 
-        Map<String, Object> userList = new HashMap<>();
-        userList.put("email", uN.toString());
-        userList.put("phoneNo", phoneNo.toString());
-        userList.put("isLogin",true);
-        userList.put("address", address.toString());
-        userList.put("UserTypeIs", "M");
-        userList.put("RegDate", SystemOprations.curretDate());
+            Map<String, Object> userList = new HashMap<>();
+            userList.put("email", uN.toString());
+            userList.put("phoneNo", phoneNo.toString());
+            userList.put("isLogin", true);
+            userList.put("address", address.toString());
+            userList.put("UserTypeIs", "M");
+            userList.put("RegDate", SystemOprations.curretDate());
 
-        FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
-        firebaseAuthClass.saveToFireStore(userList, "User_List", uN.toString().toString(), new FirebaseAuthClass.FirestoreCallback() {
-            @Override
-            public void onSuccess() {
-                SystemOprations.showMessage("Sign in Successful using " + uN, "Sign in Successful", SignInActivity.this, 1);
-                hideProBar();
-                // SystemOprations.toGoNewPage(SignInActivity.this, LoginActivity.class);
-            }
+            FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
+            firebaseAuthClass.saveToFireStore(userList, "User_List", uN.toString().toString(), new FirebaseAuthClass.FirestoreCallback() {
+                @Override
+                public void onSuccess() {
+                    SystemOprations.showMessage("Sign in Successful using " + uN, "Sign in Successful", SignInActivity.this, 1);
+                    hideProBar();
+                    // SystemOprations.toGoNewPage(SignInActivity.this, LoginActivity.class);
+                }
 
-            @Override
-            public void onFailure(Exception e) {
-                SystemOprations.showMessage(uN + e.getMessage(), "Sign in failed", SignInActivity.this, 2);
-                hideProBar();
+                @Override
+                public void onFailure(Exception e) {
+                    SystemOprations.showMessage(uN + e.getMessage(), "Sign in failed", SignInActivity.this, 2);
+                    hideProBar();
 
-            }
-        });
+                }
+            });
 
+        } catch (Exception ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
-    void visibleProBar(){
+    void visibleProBar() {
         signInProgressBar.setVisibility(View.VISIBLE);
         reg.setVisibility(View.INVISIBLE);
     }
-    void hideProBar(){
+
+    void hideProBar() {
         signInProgressBar.setVisibility(View.INVISIBLE);
         reg.setVisibility(View.VISIBLE);
     }
-
 }

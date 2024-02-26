@@ -15,8 +15,7 @@ import java.util.UUID;
 
 public class SystemOprations {
 
-    public static String emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
-    public  static  void toGoNewPage(Context context, Class<?>newPage){
+      public  static  void toGoNewPage(Context context, Class<?>newPage){
         Intent intent = new Intent(context, newPage);
         context.startActivity(intent);
     }

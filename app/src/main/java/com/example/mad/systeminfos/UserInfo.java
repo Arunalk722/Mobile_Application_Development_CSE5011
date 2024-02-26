@@ -1,5 +1,6 @@
 package com.example.mad.systeminfos;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.example.mad.otherwidget.HomeActivity;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -13,21 +14,29 @@ public class UserInfo {
 
     public void getUserInfo(String Name, Context context) {
         FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
-        firebaseAuthClass.scanFromFirestore(Name, "User_List", new FirebaseAuthClass.ScanProductCallback() {
-            @Override
-            public void onScanProductSuccess(DocumentSnapshot documentSnapshot) {
-                setUserName(documentSnapshot.getString("email").toString());
-                setUserType(documentSnapshot.getString("UserTypeIs").toString());
-                setAddress(documentSnapshot.getString("address").toString());
-                setPhoneNo(documentSnapshot.getString("phoneNo").toString());
-                setOrderGUID(SystemOprations.makeGUID());
-                SystemOprations.toGoNewPage(context, HomeActivity.class);
-            }
-            @Override
-            public void onScanProductFailure(Exception e) {
-                SystemOprations.showMessage(e.toString(), "Login error", context, 1);
-            }
-        });
+        try {
+
+            firebaseAuthClass.scanFromFirestore(Name, "User_List", new FirebaseAuthClass.ScanProductCallback() {
+                @Override
+                public void onScanProductSuccess(DocumentSnapshot documentSnapshot) {
+                    setUserName(documentSnapshot.getString("email").toString());
+                    setUserType(documentSnapshot.getString("UserTypeIs").toString());
+                    setAddress(documentSnapshot.getString("address").toString());
+                    setPhoneNo(documentSnapshot.getString("phoneNo").toString());
+                    setOrderGUID(SystemOprations.makeGUID());
+                    SystemOprations.toGoNewPage(context, HomeActivity.class);
+                }
+
+                @Override
+                public void onScanProductFailure(Exception e) {
+                    SystemOprations.showMessage(e.toString(), "Login error", context, 1);
+                }
+            });
+        } catch (Exception ex) {
+            Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
     public static void setOrderGUID(String orderGUID) {
@@ -66,12 +75,11 @@ public class UserInfo {
         UserInfo.phoneNo = phoneNo;
     }
 
-    public static boolean isAdmin(){
-        if(userType.equals("A")||userType.equals("a")){
-            return  true;
-        }
-        else{
-            return  false;
+    public static boolean isAdmin() {
+        if (userType.equals("A") || userType.equals("a")) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

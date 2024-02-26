@@ -8,7 +8,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class EncryptingPwd {
 
     private static final String AES_ALGORITHM = "AES";
-    private static final String ENCRYPTION_KEY = "123ArunaShantha@"; // Change this to your own key
+    private static final String ENCRYPTION_KEY = "123ArunaShantha@";
 
     public String encrypt(String input) {
         String hashKey = "NA";

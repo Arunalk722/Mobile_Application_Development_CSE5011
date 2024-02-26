@@ -12,27 +12,25 @@ import com.example.mad.systeminfos.SystemOprations;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    TextView signIn,logIn;
+    TextView signIn, logIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        signIn = (TextView)findViewById(R.id.lblSignIn);
+        signIn = (TextView) findViewById(R.id.lblSignIn);
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SystemOprations.toGoNewPage(WelcomeActivity.this, SignInActivity.class);
             }
         });
-        logIn = (TextView)findViewById(R.id.lblLogin);
+        logIn = (TextView) findViewById(R.id.lblLogin);
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // SystemOprations.toGoNewPage(WelcomeActivity.this,SignInActivity.class);
                 SystemOprations.toGoNewPage(WelcomeActivity.this, LoginActivity.class);
             }
         });
     }
-
 }

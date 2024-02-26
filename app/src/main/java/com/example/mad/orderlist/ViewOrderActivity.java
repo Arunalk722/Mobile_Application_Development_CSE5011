@@ -19,6 +19,7 @@ public class ViewOrderActivity extends AppCompatActivity {
     OrderAdapter orderAdapter;
 
     FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,74 +30,78 @@ public class ViewOrderActivity extends AppCompatActivity {
         listView.setAdapter(orderAdapter);
         db = FirebaseFirestore.getInstance();
 
-       if(UserInfo.isAdmin()==true){
-           showAllOrders();
-       }else{
-           showUserOrders();
-       }
+        if (UserInfo.isAdmin() == true) {
+            showAllOrders();
+        } else {
+            showUserOrders();
+        }
     }
+
     private void showUserOrders() {
-        db.collection("Order_List")
-                .whereEqualTo("UserName", UserInfo.getUserName())
-                .whereEqualTo("IsApprove",false)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String orderUser = document.getString("UserName");
-                            String productId = document.getString("proId");
-                            String productName = document.getString("productName");
-                            String orderUID = document.getString("OrderUID");
-                            boolean isApproved = document.getBoolean("IsApprove");
-                            String orderId = document.getString("OrderID");
-                            double rate = document.getDouble("Rate");
-                            double qty = document.getDouble("SellQty");
-                            double total = document.getDouble("Total");
-                            double discount = document.getDouble("Discount");
+        try {
+            db.collection("Order_List")
+                    .whereEqualTo("UserName", UserInfo.getUserName())
+                    .whereEqualTo("IsApprove", false)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String orderUser = document.getString("UserName");
+                                String productId = document.getString("proId");
+                                String productName = document.getString("productName");
+                                String orderUID = document.getString("OrderUID");
+                                boolean isApproved = document.getBoolean("IsApprove");
+                                String orderId = document.getString("OrderID");
+                                double rate = document.getDouble("Rate");
+                                double qty = document.getDouble("SellQty");
+                                double total = document.getDouble("Total");
+                                double discount = document.getDouble("Discount");
 
-                            OrderList orders = new OrderList(orderUser,productId,isApproved,rate,qty,total,orderId,discount,productName,orderUID);
-                            orderLists.add(orders);
+                                OrderList orders = new OrderList(orderUser, productId, isApproved, rate, qty, total, orderId, discount, productName, orderUID);
+                                orderLists.add(orders);
+                            }
+                            orderAdapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(this, "Failed to retrieve products", Toast.LENGTH_SHORT).show();
+
                         }
-                        orderAdapter.notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(this, "Failed to retrieve products", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
+                    });
+        } catch (Exception ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
+
     private void showAllOrders() {
+        try {
+            db.collection("Order_List")
+                    .whereEqualTo("UserName", UserInfo.getUserName()).whereEqualTo("IsApprove", false)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String orderUser = document.getString("UserName");
+                                String productId = document.getString("proId");
+                                String productName = document.getString("productName");
+                                boolean isApproved = document.getBoolean("IsApprove");
+                                String orderId = document.getString("OrderID");
+                                String orderUID = document.getString("OrderUID");
+                                double rate = document.getDouble("Rate");
+                                double qty = document.getDouble("SellQty");
+                                double total = document.getDouble("Total");
+                                double discount = document.getDouble("Discount");
 
-        db.collection("Order_List")
-                .whereEqualTo("UserName", UserInfo.getUserName()).whereEqualTo("IsApprove",false)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String orderUser = document.getString("UserName");
-                            String productId = document.getString("proId");
-                            String productName = document.getString("productName");
-                            boolean isApproved = document.getBoolean("IsApprove");
-                            String orderId = document.getString("OrderID");
-                            String orderUID = document.getString("OrderUID");
-                            double rate = document.getDouble("Rate");
-                            double qty = document.getDouble("SellQty");
-                            double total = document.getDouble("Total");
-                            double discount = document.getDouble("Discount");
+                                OrderList orders = new OrderList(orderUser, productId, isApproved, rate, qty, total, orderId, discount, productName, orderUID);
+                                orderLists.add(orders);
+                            }
+                            orderAdapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(this, "Failed to retrieve products", Toast.LENGTH_SHORT).show();
 
-                            OrderList orders = new OrderList(orderUser,productId,isApproved,rate,qty,total,orderId,discount,productName,orderUID);
-                            orderLists.add(orders);
                         }
-                        orderAdapter.notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(this, "Failed to retrieve products", Toast.LENGTH_SHORT).show();
+                    });
 
-                    }
-                });
-
-
+        } catch (Exception ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
-
-
-
 }

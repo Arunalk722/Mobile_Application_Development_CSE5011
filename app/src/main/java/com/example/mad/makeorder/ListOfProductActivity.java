@@ -34,7 +34,9 @@ public class ListOfProductActivity extends AppCompatActivity {
 
     }
     private void retrieveProducts() {
-        db.collection("Product_List")
+        try{
+
+            db.collection("Product_List")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -54,6 +56,11 @@ public class ListOfProductActivity extends AppCompatActivity {
 
                     }
                 });
+
+        }
+        catch (Exception ex){
+            Toast.makeText(this,ex.getMessage(),Toast.LENGTH_LONG).show();
+        }
 
     }
 
