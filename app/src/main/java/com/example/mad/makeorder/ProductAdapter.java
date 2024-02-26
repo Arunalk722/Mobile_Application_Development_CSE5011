@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProductAdapter extends ArrayAdapter<Products> {
     FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
@@ -43,8 +46,8 @@ public class ProductAdapter extends ArrayAdapter<Products> {
             listItemView = LayoutInflater.from(mContext).inflate(R.layout.list_item_layout, parent, false);
         }
         //card view
-        CardView discountCrd = listItemView.findViewById(R.id.crdDiscount);
-        CardView orderItem = listItemView.findViewById(R.id.cardProduct);
+        LinearLayout discountCrd = listItemView.findViewById(R.id.lstDiscount);
+        LinearLayout orderItemPanel = listItemView.findViewById(R.id.lstOrderPanel);
 
         Products currentProduct = productList.get(position);
         //product name
@@ -56,7 +59,7 @@ public class ProductAdapter extends ArrayAdapter<Products> {
         productId.setText(currentProduct.getProductId());
 
         //product umage
-        ImageView productImage = listItemView.findViewById(R.id.imgViewPrImgList);
+        CircleImageView productImage = listItemView.findViewById(R.id.imgViewPrImgList);
         Glide.with(mContext)
                 .load(currentProduct.getProductImg())
                 .placeholder(R.drawable.loading_img)
@@ -99,7 +102,7 @@ public class ProductAdapter extends ArrayAdapter<Products> {
                         double newQty = (stockQty) - (sellQty);
                         double totalDiscount = discount * sellQty;
                         double total = (sellQty * price) - totalDiscount;
-                        makeOrder(productId.getText().toString(), sellQty, totalDiscount, total, orderItem, newQty, price, productName.getText().toString());
+                        makeOrder(productId.getText().toString(), sellQty, totalDiscount, total, orderItemPanel, newQty, price, productName.getText().toString());
 
                     }
 
@@ -114,7 +117,7 @@ public class ProductAdapter extends ArrayAdapter<Products> {
         return listItemView;
     }
 
-    void makeOrder(String productId, double sellQty, double discount, double total, CardView layout, double newQty, double rate, String pName) {
+    void makeOrder(String productId, double sellQty, double discount, double total, LinearLayout orderItemPanel, double newQty, double rate, String pName) {
         try{
 
             String newOrderId = SystemOprations.makeGUID();
@@ -135,7 +138,7 @@ public class ProductAdapter extends ArrayAdapter<Products> {
         firebaseAuthClass.saveToFireStore(makeOrder, "Order_List", newOrderId, new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {
-                updateProductQuantity(productId, newQty, layout);
+                updateProductQuantity(productId, newQty, orderItemPanel);
             }
 
             @Override
@@ -149,7 +152,7 @@ public class ProductAdapter extends ArrayAdapter<Products> {
     }
     }
 
-    void updateProductQuantity(String productId, double newQuantity, CardView layout) {
+    void updateProductQuantity(String productId, double newQuantity, LinearLayout orderItemPanel) {
         try{
         Map<String, Object> updateInfo = new HashMap<>();
         updateInfo.put("Quantity", newQuantity);
@@ -157,13 +160,13 @@ public class ProductAdapter extends ArrayAdapter<Products> {
         firebaseAuthClass.updateFirebaseFirestore(updateInfo, "Product_List", productId, new FirebaseAuthClass.FirestoreCallback() {
             @Override
             public void onSuccess() {
-                layout.setVisibility(View.INVISIBLE);
+                orderItemPanel.setVisibility(View.INVISIBLE);
                 Toast.makeText(mContext, "order placed, thanks!", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Exception error) {
-                layout.setVisibility(View.VISIBLE);
+                orderItemPanel.setVisibility(View.VISIBLE);
             }
         });
         }

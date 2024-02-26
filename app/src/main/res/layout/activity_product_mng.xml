@@ -111,7 +111,7 @@
                         android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:background="@drawable/custome_textbox"
-                        android:hint="Discount(20%)"
+                        android:hint="Discount(20 LKR)"
                         android:inputType="datetime"
                         android:padding="15dp"
                         android:layout_marginTop="20dp" />

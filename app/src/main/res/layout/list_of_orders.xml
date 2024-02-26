@@ -12,23 +12,6 @@
         android:layout_marginTop="0dp"
         android:padding="5dp">
 
-       <!-- <TextView
-            android:id="@+id/lblOrderUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_gravity="left"
-            android:textSize="18sp"
-            android:text="Byer" />
-        <TextView
-            android:id="@+id/lblOrderNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_gravity="left"
-            android:text="Order ID"
-            android:textSize="15sp" />-->
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
