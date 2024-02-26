@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.mad.otherwidget.SignInActivity;
 import com.example.mad.systeminfos.FirebaseAuthClass;
 import com.example.mad.R;
 import com.example.mad.systeminfos.SystemOprations;
@@ -55,8 +56,18 @@ public class ProductMngActivity extends AppCompatActivity {
         newProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSavePrograss();
-                productSave();
+                SystemOprations.ynDialog("would you like to create new product", "new product", ProductMngActivity.this, new SystemOprations.dialogCallback() {
+                    @Override
+                    public void onPositiveButtonClicked() {
+                        showSavePrograss();
+                        productSave();
+                    }
+
+                    @Override
+                    public void onNegativeButtonClicked() {
+                        Toast.makeText(ProductMngActivity.this,"new product creation not confirmed",Toast.LENGTH_LONG).show();
+                    }
+                });
 
             }
         });
@@ -64,37 +75,75 @@ public class ProductMngActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (proIdTxt.length() >= 1) {
-                    showFindPBar();
-                    ProductInfo pi = new ProductInfo();
-                    Integer id = Integer.parseInt(proIdTxt.getText().toString());
-                    String productId = String.format("%08d", id);
-                    productFind(productId);
-                }
-
+                Integer id = Integer.parseInt(proIdTxt.getText().toString());
+                String productId = String.format("%08d", id);
+               SystemOprations.ynDialog("would you like to find product id\n" + productId, "find product", ProductMngActivity.this, new SystemOprations.dialogCallback() {
+                   @Override
+                   public void onPositiveButtonClicked() {
+                           showFindPBar();
+                           productFind(productId);
+                       }
+                   @Override
+                   public void onNegativeButtonClicked() {
+                       Toast.makeText(ProductMngActivity.this,"product find not confirmed",Toast.LENGTH_LONG).show();
+                   }
+               });
+            }
             }
         });
         clearBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearText();
-                clearError();
+               SystemOprations.ynDialog("Would you like to reset layout", "Clear data", ProductMngActivity.this, new SystemOprations.dialogCallback() {
+                   @Override
+                   public void onPositiveButtonClicked() {
+                       clearText();
+                       clearError();
+                   }
+
+                   @Override
+                   public void onNegativeButtonClicked() {
+                       Toast.makeText(ProductMngActivity.this,"Layout clear not confirmed",Toast.LENGTH_LONG).show();
+                   }
+               });
             }
         });
 
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (proIdTxt.length() == 8) {
-                    showSavePrograss();
-                    uploadImage(filePath, proIdTxt.getText().toString());
-                }
+              SystemOprations.ynDialog("Would you like to update product information", "product update", ProductMngActivity.this, new SystemOprations.dialogCallback() {
+                  @Override
+                  public void onPositiveButtonClicked() {
+                      if (proIdTxt.length() == 8) {
+                          showSavePrograss();
+                          uploadImage(filePath, proIdTxt.getText().toString());
+                      }
+                  }
+
+                  @Override
+                  public void onNegativeButtonClicked() {
+                    Toast.makeText(ProductMngActivity.this,"Image Update not confirmed",Toast.LENGTH_LONG).show();
+                  }
+              });
             }
         });
 
         imageSelectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SelectImage();
+                SystemOprations.ynDialog("Would you like to select product image from your gallery", "Select image", ProductMngActivity.this, new SystemOprations.dialogCallback() {
+                    @Override
+                    public void onPositiveButtonClicked() {
+                        SelectImage();
+                    }
+
+                    @Override
+                    public void onNegativeButtonClicked() {
+                        Toast.makeText(ProductMngActivity.this,"Image selection not confirmed",Toast.LENGTH_LONG).show();
+                    }
+                });
+
             }
 
         });

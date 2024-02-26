@@ -71,37 +71,8 @@
                         android:layout_height="60dp"
                         android:layout_marginTop="0dp"
                         android:backgroundTint="@color/purple"
-                        android:text="List Product"
+                        android:text="Product View"
                         android:drawableLeft="@drawable/productlist"
-                        android:textSize="20dp"
-                        app:cornerRadius="20dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/crdOrder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                app:cardCornerRadius="30dp"
-                app:cardElevation="20dp"
-                android:background="@drawable/custome_textbox">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="0dp"
-                    android:padding="10dp">
-                    <Button
-                        android:id="@+id/btnOrder"
-                        android:drawableLeft="@drawable/chart"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="0dp"
-                        android:backgroundTint="@color/purple"
-                        android:text="Order"
                         android:textSize="20dp"
                         app:cornerRadius="20dp" />
                 </LinearLayout>

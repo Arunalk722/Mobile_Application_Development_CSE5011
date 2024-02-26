@@ -136,6 +136,7 @@
         </RelativeLayout>
 
        <androidx.cardview.widget.CardView
+           android:id="@+id/crdAccept"
            android:layout_gravity="center"
            android:layout_width="180dp"
            android:layout_height="39dp">

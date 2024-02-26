@@ -7,8 +7,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.mad.R;
-import com.example.mad.makeorder.ProductAdapter;
-import com.example.mad.makeorder.Products;
 import com.example.mad.systeminfos.UserInfo;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -19,8 +17,8 @@ public class ViewOrderActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<OrderList> orderLists;
     OrderAdapter orderAdapter;
-    FirebaseFirestore db;
 
+    FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +29,7 @@ public class ViewOrderActivity extends AppCompatActivity {
         listView.setAdapter(orderAdapter);
         db = FirebaseFirestore.getInstance();
 
-       if(UserInfo.getUserType().equals("A")||UserInfo.getUserType().equals("a")){
+       if(UserInfo.isAdmin()==true){
            showAllOrders();
        }else{
            showUserOrders();
@@ -40,6 +38,7 @@ public class ViewOrderActivity extends AppCompatActivity {
     private void showUserOrders() {
         db.collection("Order_List")
                 .whereEqualTo("UserName", UserInfo.getUserName())
+                .whereEqualTo("IsApprove",false)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -67,8 +66,9 @@ public class ViewOrderActivity extends AppCompatActivity {
 
     }
     private void showAllOrders() {
+
         db.collection("Order_List")
-                .whereEqualTo("UserName", UserInfo.getUserName())
+                .whereEqualTo("UserName", UserInfo.getUserName()).whereEqualTo("IsApprove",false)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -96,5 +96,7 @@ public class ViewOrderActivity extends AppCompatActivity {
 
 
     }
+
+
 
 }

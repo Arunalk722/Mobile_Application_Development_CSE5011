@@ -28,12 +28,10 @@ public class Splash_Screen extends AppCompatActivity {
             @Override
             public void run() {
                   autoLoginEnable();
-            ///    SystemOprations.toGoNewPage(Splash_Screen.this,HomeActivity.class);
-             //   finish();
-            //    getUserInfo("arunalk722@hotmail.com");
 
             }
         }, 1);
+
     }
 
     public void autoLoginEnable() {

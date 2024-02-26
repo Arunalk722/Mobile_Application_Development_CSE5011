@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 String txtPwd = pwdTxt.getText().toString();
                 String txtUserName = userNametxt.getText().toString().trim();
-                if(!txtUserName.matches(SystemOprations.emailPattern)){
+                if(!isValidEmail(txtUserName)){
                     userNametxt.setError("please provide valid email");
                     return;
                 }
@@ -59,10 +59,13 @@ public class LoginActivity extends AppCompatActivity {
                     pwdTxt.setError("please provide password");
                     return;
                 }
-                showPrograssBar();
+
                 loginUsingFB(txtPwd,txtUserName);
             }
         });
+    }
+    private boolean isValidEmail(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
     void layoutInit(){
         lblSigIn = (TextView)findViewById(R.id.lblSignIn);
@@ -83,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         lblPwdReset.setTextColor(getResources().getColor(R.color.darkPink));
     }
     void loginUsingFB(String txtPwd,String txtUserName){
+        showPrograssBar();
         FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
         firebaseAuthClass.initLogin(txtUserName, txtPwd,LoginActivity.this, new FirebaseAuthClass.FirestoreCallback() {
             @Override
@@ -101,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     void resetPwd(String txtUserName){
-        if(txtUserName.matches(SystemOprations.emailPattern)){
+        if(!isValidEmail(txtUserName)){
             showPrograssBar();
 
             FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();

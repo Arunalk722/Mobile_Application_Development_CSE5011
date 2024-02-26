@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mad.R;
 import com.example.mad.systeminfos.FirebaseAuthClass;
@@ -43,56 +44,66 @@ public class SignInActivity extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SystemOprations.ynDialog("Would you like to register Sprinkles Bakery application", "Sign", SignInActivity.this, new SystemOprations.dialogCallback() {
+                    @Override
+                    public void onPositiveButtonClicked() {
+                        visibleProBar();
+                        String txtUserName = userName.getText().toString().trim();
+                        String txtPassword = pwd1.getText().toString();
+                        String txtPasswordConf = pwd2.getText().toString();
+                        String txtPhoneNo = phoneNo.getText().toString().trim();
+                        String txtAddress = address.getText().toString().trim();
+                        if (txtUserName.isEmpty()) {
+                            SystemOprations.showMessage("Please provide email address", "User name required", SignInActivity.this, 2);
+                            userName.setError("User name required");
+                            hideProBar();
+                            return;
+                        }
 
-                visibleProBar();
-                String txtUserName = userName.getText().toString().trim();
-                String txtPassword = pwd1.getText().toString();
-                String txtPasswordConf = pwd2.getText().toString();
-                String txtPhoneNo = phoneNo.getText().toString().trim();
-                String txtAddress = address.getText().toString().trim();
-                if (txtUserName.isEmpty()) {
-                    SystemOprations.showMessage("Please provide email address", "User name required", SignInActivity.this, 2);
-                    userName.setError("User name required");
-                    hideProBar();
-                    return;
-                }
+                        if (!txtUserName.matches(emailPattern)) {
+                            SystemOprations.showMessage("Please provide email address in correct format", "Email format is wrong", SignInActivity.this, 2);
+                            userName.setError("Email format is wrong");
+                            hideProBar();
+                            return;
+                        }
 
-                if (!txtUserName.matches(emailPattern)) {
-                    SystemOprations.showMessage("Please provide email address in correct format", "Email format is wrong", SignInActivity.this, 2);
-                    userName.setError("Email format is wrong");
-                    hideProBar();
-                    return;
-                }
+                        if (txtPassword.isEmpty() || txtPasswordConf.isEmpty()) {
+                            SystemOprations.showMessage("Please provide password and confirm password", "Password required", SignInActivity.this, 2);
+                            pwd1.setError("Password required");
+                            pwd2.setError("Password required");
+                            hideProBar();
+                            return;
+                        }
 
-                if (txtPassword.isEmpty() || txtPasswordConf.isEmpty()) {
-                    SystemOprations.showMessage("Please provide password and confirm password", "Password required", SignInActivity.this, 2);
-                    pwd1.setError("Password required");
-                    pwd2.setError("Password required");
-                    hideProBar();
-                    return;
-                }
+                        if (!txtPassword.equals(txtPasswordConf)) {
+                            SystemOprations.showMessage("Passwords do not match", "Password mismatch", SignInActivity.this, 2);
+                            pwd1.setError("Password mismatch");
+                            pwd2.setError("Password mismatch");
+                            hideProBar();
+                            return;
+                        }
 
-                if (!txtPassword.equals(txtPasswordConf)) {
-                    SystemOprations.showMessage("Passwords do not match", "Password mismatch", SignInActivity.this, 2);
-                    pwd1.setError("Password mismatch");
-                    pwd2.setError("Password mismatch");
-                    hideProBar();
-                    return;
-                }
+                        if (txtPhoneNo.isEmpty() || txtPhoneNo.length() != 10) {
+                            phoneNo.setError("Invalid phone number");
+                            SystemOprations.showMessage("Please provide a 10-digit phone number", "Invalid phone number", SignInActivity.this, 2);
+                            hideProBar();
+                            return;
+                        }
+                        if (txtAddress.isEmpty()) {
+                            phoneNo.setError("Invalid phone number");
+                            SystemOprations.showMessage("Please provide a 10-digit phone number", "Invalid phone number", SignInActivity.this, 2);
+                            hideProBar();
+                            return;
+                        }
+                        signUpGoogle(txtUserName, txtPassword, txtPhoneNo, txtAddress);
+                    }
 
-                if (txtPhoneNo.isEmpty() || txtPhoneNo.length() != 10) {
-                    phoneNo.setError("Invalid phone number");
-                    SystemOprations.showMessage("Please provide a 10-digit phone number", "Invalid phone number", SignInActivity.this, 2);
-                    hideProBar();
-                    return;
-                }
-                if (txtAddress.isEmpty()) {
-                    phoneNo.setError("Invalid phone number");
-                    SystemOprations.showMessage("Please provide a 10-digit phone number", "Invalid phone number", SignInActivity.this, 2);
-                    hideProBar();
-                    return;
-                }
-                signUpGoogle(txtUserName, txtPassword, txtPhoneNo,txtAddress);
+                    @Override
+                    public void onNegativeButtonClicked() {
+                        Toast.makeText(SignInActivity.this,"not confirm",Toast.LENGTH_LONG).show();
+                    }
+                });
+
             }
         });
 

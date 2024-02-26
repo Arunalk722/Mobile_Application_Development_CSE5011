@@ -46,10 +46,6 @@ public class UserInfo {
         UserInfo.userName = userName;
     }
 
-    public static String getUserType() {
-        return userType;
-    }
-
     public static void setUserType(String userType) {
         UserInfo.userType = userType;
     }
@@ -68,5 +64,14 @@ public class UserInfo {
 
     public static void setPhoneNo(String phoneNo) {
         UserInfo.phoneNo = phoneNo;
+    }
+
+    public static boolean isAdmin(){
+        if(userType.equals("A")||userType.equals("a")){
+            return  true;
+        }
+        else{
+            return  false;
+        }
     }
 }
