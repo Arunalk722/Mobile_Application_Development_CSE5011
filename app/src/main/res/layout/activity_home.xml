@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/bg_colors"
+    android:background="@drawable/home_bg"
     tools:context=".otherwidget.HomeActivity">
     <ScrollView
         android:layout_width="match_parent"

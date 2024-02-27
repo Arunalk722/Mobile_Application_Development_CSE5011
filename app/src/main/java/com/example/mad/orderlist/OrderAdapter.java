@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,8 +74,12 @@ public class OrderAdapter  extends ArrayAdapter<OrderList> {
         double qty = currentOrder.getQty();
         TextView qtyTxt = listItemView.findViewById(R.id.lblQty);
         qtyTxt.setText(String.valueOf(qty) + " NOS");
+
+
+
         if (discount <= 0) {
             discountTxt.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+
         } else {
             discountTxt.setTextColor(ContextCompat.getColor(getContext(), R.color.clearRed));
 

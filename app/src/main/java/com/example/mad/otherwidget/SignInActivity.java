@@ -44,7 +44,7 @@ public class SignInActivity extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SystemOprations.ynDialog("Would you like to register Sprinkles Bakery application", "Sign", SignInActivity.this, new SystemOprations.dialogCallback() {
+                SystemOprations.ynDialog("Would you like to register Sprinkles Bakery application", "Sign in", SignInActivity.this, new SystemOprations.dialogCallback() {
                     @Override
                     public void onPositiveButtonClicked() {
                         visibleProBar();
@@ -138,7 +138,7 @@ public class SignInActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Exception error) {
-                    SystemOprations.showMessage(uN + error.getMessage(), "Sign in failed", SignInActivity.this, 2);
+                    SystemOprations.showMessage(uN + error.getMessage(), "Sign-In failed", SignInActivity.this, 2);
                     hideProBar();
                 }
             });

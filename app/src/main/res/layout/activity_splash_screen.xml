@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/bg_colors"
+    android:background="@drawable/home_bg"
     tools:context=".otherwidget.Splash_Screen">
 
     <ScrollView
@@ -14,23 +14,21 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_marginBottom="100dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
             android:layout_marginTop="30dp">
 
-    <ImageView
-        android:id="@+id/imgView"
-        android:src="@drawable/splash_img"
-        android:layout_width="match_parent"
-        android:layout_height="600dp"/>
 
     <ProgressBar
         android:id="@+id/progress_circular"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/imgView"
+
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
         android:layout_centerInParent="true" />
     <TextView
         android:id="@+id/lblLoading"

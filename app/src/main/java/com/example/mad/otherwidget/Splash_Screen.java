@@ -50,7 +50,7 @@ public class Splash_Screen extends AppCompatActivity {
                             if (isAutoLogin == true) {
                                 EncryptingPwd encryptingPwd = new EncryptingPwd();
                                 FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
-                                firebaseAuthClass.initLogin(userName, encryptingPwd.decrypt(passwordHash), Splash_Screen.this, new FirebaseAuthClass.FirestoreCallback() {
+                                firebaseAuthClass.initLogin(userName, encryptingPwd.decrypt(passwordHash,Splash_Screen.this), Splash_Screen.this, new FirebaseAuthClass.FirestoreCallback() {
 
                                     @Override
                                     public void onSuccess() {

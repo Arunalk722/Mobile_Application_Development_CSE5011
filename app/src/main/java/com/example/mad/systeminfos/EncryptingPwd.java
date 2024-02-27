@@ -1,5 +1,10 @@
 package com.example.mad.systeminfos;
+import android.content.Context;
 import android.os.Build;
+import android.widget.Toast;
+
+import com.example.mad.otherwidget.LoginActivity;
+
 import java.security.Key;
 import java.util.Base64;
 import javax.crypto.Cipher;
@@ -8,7 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class EncryptingPwd {
 
     private static final String AES_ALGORITHM = "AES";
-    private static final String ENCRYPTION_KEY = "123ArunaShantha@";
+    private static final String ENCRYPTION_KEY = "123ICBTMADKEYS@A";
 
     public String encrypt(String input) {
         String hashKey = "NA";
@@ -28,7 +33,7 @@ public class EncryptingPwd {
         }
         return  hashKey;
     }
-    public  String decrypt(String input) {
+    public  String decrypt(String input, Context context) {
         try {
             Key key = new SecretKeySpec(ENCRYPTION_KEY.getBytes(), AES_ALGORITHM);
             Cipher cipher = Cipher.getInstance(AES_ALGORITHM);
@@ -40,6 +45,8 @@ public class EncryptingPwd {
             return new String(decryptedBytes);
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+            SystemOprations.toGoNewPage(context, LoginActivity.class);
             return null;
         }
     }
