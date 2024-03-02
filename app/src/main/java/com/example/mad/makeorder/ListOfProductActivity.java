@@ -41,9 +41,9 @@ public class ListOfProductActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            String productId = document.getString("proId");
-                            String productName = document.getString("productName");
-                            String prodImg = document.getString("imagePath");
+                            String productId = document.getString("ProId");
+                            String productName = document.getString("ProductName");
+                            String prodImg = document.getString("ImagePath");
                             double price = document.getDouble("Price");
                             double quantity = document.getDouble("Quantity");
                             double discount = document.getDouble("Discount");

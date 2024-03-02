@@ -159,10 +159,10 @@ public class SignInActivity extends AppCompatActivity {
         try {
 
             Map<String, Object> userList = new HashMap<>();
-            userList.put("email", uN.toString());
-            userList.put("phoneNo", phoneNo.toString());
-            userList.put("isLogin", true);
-            userList.put("address", address.toString());
+            userList.put("Email", uN.toString());
+            userList.put("PhoneNo", phoneNo.toString());
+            userList.put("IsLogin", true);
+            userList.put("Address", address.toString());
             userList.put("UserTypeIs", "M");
             userList.put("RegDate", SystemOprations.curretDate());
 

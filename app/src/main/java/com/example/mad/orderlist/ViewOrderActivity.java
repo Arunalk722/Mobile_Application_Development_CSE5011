@@ -80,8 +80,8 @@ public class ViewOrderActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String orderUser = document.getString("UserName");
-                                String productId = document.getString("proId");
-                                String productName = document.getString("productName");
+                                String productId = document.getString("ProId");
+                                String productName = document.getString("ProductName");
                                 boolean isApproved = document.getBoolean("IsApprove");
                                 String orderId = document.getString("OrderID");
                                 String orderUID = document.getString("OrderUID");

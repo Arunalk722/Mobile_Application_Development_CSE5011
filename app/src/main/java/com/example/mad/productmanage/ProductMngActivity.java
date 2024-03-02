@@ -280,13 +280,13 @@ public class ProductMngActivity extends AppCompatActivity {
             firebaseAuthClass.scanFromFirestore(productId, "Product_List", new FirebaseAuthClass.ScanProductCallback() {
                 @Override
                 public void onScanProductSuccess(DocumentSnapshot documentSnapshot) {
-                    proIdTxt.setText(documentSnapshot.getString("proId").toString());
-                    proNameTxt.setText(documentSnapshot.getString("productName").toString());
+                    proIdTxt.setText(documentSnapshot.getString("ProId").toString());
+                    proNameTxt.setText(documentSnapshot.getString("ProductName").toString());
                     proDisTxt.setText(documentSnapshot.getDouble("Discount").toString());
                     proQtyTxt.setText(documentSnapshot.getDouble("Quantity").toString());
                     proPriceTxt.setText(documentSnapshot.getDouble("Price").toString());
                     Glide.with(ProductMngActivity.this)
-                            .load(documentSnapshot.getString("imagePath"))
+                            .load(documentSnapshot.getString("ImagePath"))
                             .placeholder(null)
                             .into(imageView);
                     clearError();
@@ -324,13 +324,13 @@ public class ProductMngActivity extends AppCompatActivity {
     void saveProductInfo(String productId, Uri imageUrl) {
         try {
             Map<String, Object> productInfo = new HashMap<>();
-            productInfo.put("proId", productId);
-            productInfo.put("productName", proNameTxt.getText().toString());
+            productInfo.put("ProId", productId);
+            productInfo.put("ProductName", proNameTxt.getText().toString());
             productInfo.put("Price", Double.parseDouble(proPriceTxt.getText().toString()));
             productInfo.put("Quantity", Double.parseDouble(proQtyTxt.getText().toString()));
             productInfo.put("Discount", Double.parseDouble(proDisTxt.getText().toString()));
             productInfo.put("DateTime", SystemOprations.curretDate().toString());
-            productInfo.put("imagePath", imageUrl);
+            productInfo.put("ImagePath", imageUrl);
             firebaseAuthClass.saveToFireStore(productInfo, "Product_List", productId, new FirebaseAuthClass.FirestoreCallback() {
                 @Override
                 public void onSuccess() {

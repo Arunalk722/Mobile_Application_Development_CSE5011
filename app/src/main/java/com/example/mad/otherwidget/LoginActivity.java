@@ -163,9 +163,9 @@ public class LoginActivity extends AppCompatActivity {
 
             EncryptingPwd encryptingPwd = new EncryptingPwd();
             Map<String, Object> listAutoLogin = new HashMap<>();
-            listAutoLogin.put("email", userName.toString());
-            listAutoLogin.put("password", encryptingPwd.encrypt(pwd.toString()));
-            listAutoLogin.put("isAutoLogin", true);
+            listAutoLogin.put("Email", userName.toString());
+            listAutoLogin.put("Password", encryptingPwd.encrypt(pwd.toString()));
+            listAutoLogin.put("OsAutoLogin", true);
             listAutoLogin.put("RegDate", SystemOprations.curretDate());
 
             FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();

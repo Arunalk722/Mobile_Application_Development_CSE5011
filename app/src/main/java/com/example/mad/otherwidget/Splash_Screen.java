@@ -44,9 +44,9 @@ public class Splash_Screen extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
-                            String userName = documentSnapshot.getString("email");
-                            String passwordHash = documentSnapshot.getString("password");
-                            boolean isAutoLogin = documentSnapshot.getBoolean("isAutoLogin");
+                            String userName = documentSnapshot.getString("Email");
+                            String passwordHash = documentSnapshot.getString("Password");
+                            boolean isAutoLogin = documentSnapshot.getBoolean("IsAutoLogin");
                             if (isAutoLogin == true) {
                                 EncryptingPwd encryptingPwd = new EncryptingPwd();
                                 FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();

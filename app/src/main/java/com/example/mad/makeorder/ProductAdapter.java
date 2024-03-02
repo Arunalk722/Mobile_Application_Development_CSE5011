@@ -126,13 +126,13 @@ public class ProductAdapter extends ArrayAdapter<Products> {
         makeOrder.put("OrderUID", newOrderId);
         makeOrder.put("OrderID", userInfo.getOrderGUID());
         makeOrder.put("UserName", userInfo.getUserName());
-        makeOrder.put("proId", productId);
+        makeOrder.put("ProId", productId);
         makeOrder.put("SellQty", sellQty);
         makeOrder.put("Rate", rate);
         makeOrder.put("Discount", discount);
         makeOrder.put("Total", total);
         makeOrder.put("IsApprove", false);
-        makeOrder.put("productName", pName);
+        makeOrder.put("ProductName", pName);
 
         makeOrder.put("DateTime", SystemOprations.curretDate());
         firebaseAuthClass.saveToFireStore(makeOrder, "Order_List", newOrderId, new FirebaseAuthClass.FirestoreCallback() {
