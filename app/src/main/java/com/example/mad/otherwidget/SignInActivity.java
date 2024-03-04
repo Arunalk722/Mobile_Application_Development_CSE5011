@@ -48,7 +48,7 @@ public class SignInActivity extends AppCompatActivity {
                     @Override
                     public void onPositiveButtonClicked() {
                         visibleProBar();
-                        String txtUserName = userName.getText().toString().trim();
+                        String txtUserName = userName.getText().toString().trim().toLowerCase();
                         String txtPassword = pwd1.getText().toString();
                         String txtPasswordConf = pwd2.getText().toString();
                         String txtPhoneNo = phoneNo.getText().toString().trim();
@@ -172,7 +172,7 @@ public class SignInActivity extends AppCompatActivity {
                 public void onSuccess() {
                     SystemOprations.showMessage("Sign in Successful using " + uN, "Sign in Successful", SignInActivity.this, 1);
                     hideProBar();
-                    // SystemOprations.toGoNewPage(SignInActivity.this, LoginActivity.class);
+                    SystemOprations.toGoNewPage(SignInActivity.this, LoginActivity.class);
                 }
 
                 @Override

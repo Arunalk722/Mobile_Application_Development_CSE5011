@@ -45,6 +45,15 @@ public class ProductAdapter extends ArrayAdapter<Products> {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(mContext).inflate(R.layout.list_item_layout, parent, false);
         }
+        LinearLayout orderPanel = listItemView.findViewById(R.id.lstOrderPanel);
+
+        if(UserInfo.isAdmin()==true){
+            orderPanel.setVisibility(View.INVISIBLE);
+        }
+        else{
+            orderPanel.setVisibility(View.VISIBLE);
+        }
+
         //card view
         LinearLayout discountCrd = listItemView.findViewById(R.id.lstDiscount);
         LinearLayout orderItemPanel = listItemView.findViewById(R.id.lstOrderPanel);

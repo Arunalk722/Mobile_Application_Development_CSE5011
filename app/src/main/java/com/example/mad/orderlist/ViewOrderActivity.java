@@ -30,6 +30,9 @@ public class ViewOrderActivity extends AppCompatActivity {
         listView.setAdapter(orderAdapter);
         db = FirebaseFirestore.getInstance();
 
+
+
+
         if (UserInfo.isAdmin() == true) {
             showAllOrders();
         } else {
@@ -47,8 +50,8 @@ public class ViewOrderActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String orderUser = document.getString("UserName");
-                                String productId = document.getString("proId");
-                                String productName = document.getString("productName");
+                                String productId = document.getString("ProId");
+                                String productName = document.getString("ProductName");
                                 String orderUID = document.getString("OrderUID");
                                 boolean isApproved = document.getBoolean("IsApprove");
                                 String orderId = document.getString("OrderID");

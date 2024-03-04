@@ -354,8 +354,6 @@ public class ProductMngActivity extends AppCompatActivity {
         clearBtn.setVisibility(View.INVISIBLE);
         updateBtn.setVisibility(View.INVISIBLE);
         savePBar.setVisibility(View.VISIBLE);
-
-
     }
 
     void hideSavePrograss() {

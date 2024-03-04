@@ -12,104 +12,128 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
             android:layout_marginTop="0dp">
-            <com.google.android.material.appbar.MaterialToolbar
+
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                app:title="as"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="0dp"
                     android:gravity="center"
-                    android:backgroundTint="@color/purple"
                     android:drawableLeft="@drawable/cake"
                     android:text="Product Manage"
                     android:textSize="30dp"
                     app:cornerRadius="20dp" />
 
-            </com.google.android.material.appbar.MaterialToolbar>
+            </androidx.cardview.widget.CardView>
+
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginHorizontal="30dp"
                 app:cardCornerRadius="30dp"
                 app:cardElevation="20dp"
                 android:background="@drawable/custome_textbox">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="0dp"
                     android:padding="24dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Product ID"
+                        android:textSize="18sp"
+                        android:textColor="@color/black" />
                     <EditText
                         android:id="@+id/txtProductId"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_gravity="left"
                         android:background="@drawable/custome_textbox"
                         android:hint="000001"
                         android:inputType="number"
                         android:padding="8dp"
-                        android:layout_marginTop="20dp"
-                        tools:ignore="MissingConstraints" />
+                        android:layout_marginTop="20dp" />
                     <Button
                         android:id="@+id/btnFoundProduct"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="Find"/>
-
                     <ProgressBar
                         android:id="@+id/prgFind"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:visibility="visible" />
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Product Name"
+                        android:textSize="12sp"
+                        android:textColor="@color/black" />
                     <EditText
                         android:id="@+id/txtProductName"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_gravity="center"
                         android:background="@drawable/custome_textbox"
                         android:hint="Product Name"
                         android:inputType="text"
                         android:padding="15dp"
                         android:layout_marginTop="20dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Price"
+                        android:textSize="12sp"
+                        android:textColor="@color/black" />
                     <EditText
                         android:id="@+id/txtProductPrice"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_gravity="center"
                         android:background="@drawable/custome_textbox"
                         android:hint="Price"
                         android:inputType="numberDecimal"
                         android:padding="15dp"
                         android:layout_marginTop="20dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quantity"
+                        android:textSize="12sp"
+                        android:textColor="@color/black" />
                     <EditText
                         android:id="@+id/txtQty"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_gravity="center"
                         android:background="@drawable/custome_textbox"
                         android:hint="Quantity"
                         android:inputType="numberDecimal"
                         android:padding="15dp"
                         android:layout_marginTop="20dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Discount"
+                        android:textSize="12sp"
+                        android:textColor="@color/black" />
                     <EditText
                         android:id="@+id/txtDiscount"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_gravity="center"
                         android:background="@drawable/custome_textbox"
                         android:hint="Discount(20 LKR)"
                         android:inputType="datetime"
@@ -131,37 +155,37 @@
                         android:layout_height="200dp"
                         android:layout_gravity="center"
                         android:scaleType="fitCenter" />
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="90dp"
+                android:layout_marginHorizontal="30dp"
                 app:cardCornerRadius="30dp"
                 app:cardElevation="20dp"
                 android:background="@drawable/custome_textbox">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="0dp"
                     android:padding="10dp">
+
+
                     <ProgressBar
                         android:id="@+id/prgBarSave"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:visibility="visible"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="100dp"
+                        android:visibility="gone"
+                        android:layout_gravity="center"/>
+
                     <Button
                         android:id="@+id/btnNewProduct"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginTop="0dp"
                         android:backgroundTint="@color/greenSave"
                         android:text="New Product"
                         android:drawableLeft="@drawable/invoice"
@@ -171,7 +195,6 @@
                         android:id="@+id/btnUpdate"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginTop="0dp"
                         android:backgroundTint="@color/purple"
                         android:text="Update"
                         android:drawableLeft="@drawable/update2"
@@ -181,15 +204,14 @@
                         android:id="@+id/btnClear"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginTop="0dp"
                         android:backgroundTint="@color/clearRed"
                         android:text="Clear"
                         android:drawableLeft="@drawable/clear"
                         android:textSize="20dp"
                         app:cornerRadius="20dp" />
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

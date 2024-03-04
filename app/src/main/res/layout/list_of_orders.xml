@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_color_pm"
     android:padding="16dp">
 
 
+
     <TextView
-        android:id="@+id/lblCustomer"
+        android:id="@+id/lblPName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:textColor="@color/black"
         android:text="Product Name"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
-
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"/>
 
     <LinearLayout
         android:id="@+id/leftSideLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblCustomer"
-        android:layout_marginEnd="80dp"
-        android:orientation="vertical">
-
+        android:layout_below="@id/lblPName"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="80dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,21 +35,20 @@
                 android:id="@+id/lblProductName"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Product:"
+                android:text="Customer:"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="10sp" />
 
             <TextView
-                android:id="@+id/lblPName"
+                android:id="@+id/lblCustomer"
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textSize="15sp" />
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,22 +58,21 @@
             <TextView
                 android:id="@+id/lblQuantity"
                 android:layout_width="100dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="Quantity:"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/lblQty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:backgroundTint="@color/black"
                 android:text="Qty"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:textSize="15sp" />
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/linerDiscount"
@@ -84,11 +82,11 @@
 
             <TextView
                 android:id="@+id/lblDiscountLabel"
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Discount:"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:textSize="15sp" />
 
             <TextView
@@ -101,7 +99,6 @@
                 android:textSize="15sp"/>
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -110,10 +107,10 @@
             <TextView
                 android:id="@+id/lblTotalLabel"
                 android:layout_width="100dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="Total:"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:textSize="15sp" />
 
             <TextView
@@ -127,22 +124,19 @@
         </LinearLayout>
     </LinearLayout>
 
-
-
     <LinearLayout
         android:id="@+id/rightSideLayout"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/lblCustomer"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="0dp">
+        android:layout_below="@id/lblPName"
+        android:layout_marginTop="16dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/crdAccept"
             android:layout_width="match_parent"
-            android:backgroundTint="@color/transparent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/transparent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -154,7 +148,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:backgroundTint="@color/transparent"
-                    android:shadowColor="@color/greenSave"
                     android:drawableLeft="@drawable/circle_check" />
 
                 <Button
@@ -162,7 +155,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:backgroundTint="@color/transparent"
-                    android:shadowColor="@color/clearRed"
                     android:drawableLeft="@drawable/circle_xmark" />
 
             </LinearLayout>

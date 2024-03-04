@@ -2,6 +2,7 @@ package com.example.mad.systeminfos;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.mad.WelcomeActivity;
 import com.example.mad.otherwidget.HomeActivity;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -19,17 +20,19 @@ public class UserInfo {
             firebaseAuthClass.scanFromFirestore(Name, "User_List", new FirebaseAuthClass.ScanProductCallback() {
                 @Override
                 public void onScanProductSuccess(DocumentSnapshot documentSnapshot) {
-                    setUserName(documentSnapshot.getString("email").toString());
+                    setUserName(documentSnapshot.getString("Email").toString());
                     setUserType(documentSnapshot.getString("UserTypeIs").toString());
-                    setAddress(documentSnapshot.getString("address").toString());
-                    setPhoneNo(documentSnapshot.getString("phoneNo").toString());
+                    setAddress(documentSnapshot.getString("Address").toString());
+                    setPhoneNo(documentSnapshot.getString("PhoneNo").toString());
                     setOrderGUID(SystemOprations.makeGUID());
                     SystemOprations.toGoNewPage(context, HomeActivity.class);
                 }
 
                 @Override
                 public void onScanProductFailure(Exception e) {
-                    SystemOprations.showMessage(e.toString(), "Login error", context, 1);
+                    //SystemOprations.showMessage(e.toString(), "Login error", context, 1);
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                    SystemOprations.toGoNewPage(context, WelcomeActivity.class);
                 }
             });
         } catch (Exception ex) {
