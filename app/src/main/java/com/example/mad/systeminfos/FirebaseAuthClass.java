@@ -75,7 +75,7 @@ public class FirebaseAuthClass {
 
     }
 
-    public void deleteFirebaseFirestore(Map<String, Object> updateData, String collectionName, String docName, FirestoreCallback callback) {
+    public void deleteFirebaseFirestore(String collectionName, String docName, FirestoreCallback callback) {
         try {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection(collectionName).document(docName).delete()

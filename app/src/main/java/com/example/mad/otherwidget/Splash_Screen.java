@@ -35,10 +35,10 @@ public class Splash_Screen extends AppCompatActivity {
     }
 
     public void autoLoginEnable() {
-        String deviceId = Settings.Secure.getString(Splash_Screen.this.getContentResolver(), Settings.Secure.ANDROID_ID);
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Auto_Login")
-                .document(deviceId)
+                .document(SystemOprations.getDeviceID(Splash_Screen.this).toString())
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override

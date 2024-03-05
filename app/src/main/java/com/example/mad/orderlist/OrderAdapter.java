@@ -149,9 +149,8 @@ public class OrderAdapter  extends ArrayAdapter<OrderList> {
 
     void deleteOrder(String orderUid) {
         try {
-            Map<String, Object> delete = new HashMap<>();
             FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
-            firebaseAuthClass.deleteFirebaseFirestore(delete, "Order_List", orderUid, new FirebaseAuthClass.FirestoreCallback() {
+            firebaseAuthClass.deleteFirebaseFirestore("Order_List", orderUid, new FirebaseAuthClass.FirestoreCallback() {
                 @Override
                 public void onSuccess() {
                     Toast.makeText(mContext, "Order was deleted.", Toast.LENGTH_SHORT).show();

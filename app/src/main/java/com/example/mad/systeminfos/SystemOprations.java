@@ -6,8 +6,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.Settings;
 
 import com.example.mad.R;
+import com.example.mad.otherwidget.Splash_Screen;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -96,5 +98,8 @@ public class SystemOprations {
     public interface dialogCallback {
         void onPositiveButtonClicked();
         void onNegativeButtonClicked();
+    }
+    public static String getDeviceID(Context context){
+        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 }

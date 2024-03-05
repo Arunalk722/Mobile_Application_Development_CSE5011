@@ -18,6 +18,9 @@
         android:theme="@style/Theme.MAD"
         tools:targetApi="31">
         <activity
+            android:name=".orderlist.ViewAllOrdersActivity"
+            android:exported="false" />
+        <activity
             android:name=".orderlist.ViewOrderActivity"
             android:exported="false" />
         <activity
