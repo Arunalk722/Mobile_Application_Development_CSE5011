@@ -44,15 +44,18 @@ public class OrderAdapter  extends ArrayAdapter<OrderList> {
             listItemView = LayoutInflater.from(mContext).inflate(R.layout.list_of_orders, parent, false);
         }
         //card view
+        OrderList currentOrder = orderLists.get(position);
         CardView acceptCrd = listItemView.findViewById(R.id.crdAccept);
 
-        if (UserInfo.isAdmin() == true) {
+        if (UserInfo.isAdmin() == true&&currentOrder.isApproved()==false) {
             acceptCrd.setVisibility(View.VISIBLE);
         } else {
             acceptCrd.setVisibility(View.INVISIBLE);
         }
 
-        OrderList currentOrder = orderLists.get(position);
+
+
+
         //product name
         TextView orderUser = listItemView.findViewById(R.id.lblCustomer);
         orderUser.setText(currentOrder.getOrderUser());

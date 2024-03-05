@@ -12,8 +12,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class EncryptingPwd {
 
-    private static final String AES_ALGORITHM = "AES";
-    private static final String ENCRYPTION_KEY = "123ICBTMADKEYS@A";
+    private   String AES_ALGORITHM = "AES";
+    private   String ENCRYPTION_KEY = "123ICBTMADKEYS@A";
 
     public String encrypt(String input) {
         String hashKey = "NA";

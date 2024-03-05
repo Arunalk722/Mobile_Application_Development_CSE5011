@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class SystemOprations {
 
-      public  static  void toGoNewPage(Context context, Class<?>newPage){
+    public  static  void toGoNewPage(Context context, Class<?>newPage){
         Intent intent = new Intent(context, newPage);
         context.startActivity(intent);
     }

@@ -5,6 +5,8 @@ import androidx.cardview.widget.CardView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mad.R;
@@ -15,12 +17,14 @@ import com.example.mad.productmanage.ProductMngActivity;
 import com.example.mad.systeminfos.FirebaseAuthClass;
 import com.example.mad.systeminfos.SystemOprations;
 import com.example.mad.systeminfos.UserInfo;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
 
     CardView pmCrd,lpCrd,loCard;
-    Button productManageBtn,listProductBtn,listOrderBtn,listAllOrderbtn,logoutBtn;
-
+    ImageButton productManageBtn,listProductBtn,listOrderBtn,listAllOrderbtn;
+    TextView loginUserLbl,userTypeLbl;
+    FloatingActionButton  logoutBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,21 +34,27 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     void uiInit(){
-        pmCrd = (CardView)findViewById(R.id.crdProductManage);
-        lpCrd = (CardView) findViewById(R.id.crdListProduct);
-        loCard =(CardView) findViewById(R.id.crdListOrder);
-        logoutBtn = (Button)findViewById(R.id.btnlogOut);
-        productManageBtn=(Button) findViewById(R.id.btnProductManage);
-        listProductBtn=(Button) findViewById(R.id.btnListProduct);
-        listOrderBtn=(Button) findViewById(R.id.btnListOrder);
+        pmCrd = findViewById(R.id.crdProductManage);
+        lpCrd =findViewById(R.id.crdListProduct);
+        loCard =findViewById(R.id.crdListOrder);
+        logoutBtn = findViewById(R.id.btnlogOut);
+        productManageBtn=findViewById(R.id.btnProductManage);
+        listProductBtn=findViewById(R.id.btnListProduct);
+        listOrderBtn=findViewById(R.id.btnListOrder);
         listAllOrderbtn=findViewById(R.id.btnListAllOrder);
         if(UserInfo.isAdmin()==true){
             pmCrd.setVisibility(View.VISIBLE);
         }else{
             pmCrd.setVisibility(View.INVISIBLE);
         }
-
-
+        loginUserLbl = findViewById(R.id.lblUserName);
+        loginUserLbl.setText("Login :"+UserInfo.getUserName());
+        userTypeLbl = findViewById(R.id.lblUserType);
+        if(UserInfo.isAdmin()==true){
+            userTypeLbl.setText("User Type :Super User");
+        }else{
+            userTypeLbl.setText("User Type :Member");
+        }
         productManageBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
