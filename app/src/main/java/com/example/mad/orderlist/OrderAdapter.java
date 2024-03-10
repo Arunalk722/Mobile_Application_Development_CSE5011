@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,11 +47,13 @@ public class OrderAdapter  extends ArrayAdapter<OrderList> {
         //card view
         OrderList currentOrder = orderLists.get(position);
         CardView acceptCrd = listItemView.findViewById(R.id.crdAccept);
-
+        ImageView imgCurrectMark = listItemView.findViewById(R.id.imgViewCurretMark);
         if (UserInfo.isAdmin() == true&&currentOrder.isApproved()==false) {
             acceptCrd.setVisibility(View.VISIBLE);
+            imgCurrectMark.setVisibility(View.INVISIBLE);
         } else {
             acceptCrd.setVisibility(View.INVISIBLE);
+            imgCurrectMark.setVisibility(View.VISIBLE);
         }
 
 

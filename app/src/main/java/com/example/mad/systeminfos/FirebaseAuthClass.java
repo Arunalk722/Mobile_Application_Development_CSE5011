@@ -30,19 +30,15 @@ public class FirebaseAuthClass {
 
     public void saveToFireStore(Map<String, Object> mapData, String collectionName, String docName, FirestoreCallback callback) {
         try {
-
-            db.collection(collectionName).document(docName).set(mapData)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+            db.collection(collectionName).document(docName).set(mapData).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            // Call the onSuccess method of the callback
                             callback.onSuccess();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            // Call the onFailure method of the callback
                             callback.onFailure(e);
                         }
                     });

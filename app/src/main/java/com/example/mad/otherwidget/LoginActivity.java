@@ -104,7 +104,6 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Exception error) {
                     SystemOprations.showMessage(error.getMessage(), "Login failed", LoginActivity.this, 2);
-
                     hidePrograssBar();
                     setPwdLinkEnable();
                 }

@@ -14,9 +14,8 @@ public class EncryptingPwd {
 
     private   String AES_ALGORITHM = "AES";
     private   String ENCRYPTION_KEY = "123ICBTMADKEYS@A";
-
     public String encrypt(String input) {
-        String hashKey = "NA";
+        String hashKey = "";
         try {
             Key key = new SecretKeySpec(ENCRYPTION_KEY.getBytes(), AES_ALGORITHM);
             Cipher cipher = Cipher.getInstance(AES_ALGORITHM);
@@ -29,7 +28,6 @@ public class EncryptingPwd {
 
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         return  hashKey;
     }
