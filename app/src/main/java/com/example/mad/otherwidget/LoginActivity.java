@@ -115,9 +115,9 @@ public class LoginActivity extends AppCompatActivity {
 
     void resetPwd(String txtUserName) {
         try {
-            if (!isValidEmail(txtUserName)) {
+            boolean emailCheck = isValidEmail(txtUserName);
+            if (emailCheck==true) {
                 showPrograssBar();
-
                 FirebaseAuthClass firebaseAuthClass = new FirebaseAuthClass();
                 firebaseAuthClass.resetPwd(txtUserName, new FirebaseAuthClass.FirestoreCallback() {
                     @Override
@@ -132,7 +132,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-            } else {
+            }
+            else {
                 SystemOprations.showMessage("please check your email address.", "invalid email address", LoginActivity.this, 2);
             }
         } catch (Exception ex) {

@@ -62,7 +62,7 @@ public class SignInActivity extends AppCompatActivity {
 
                         if (!txtUserName.matches(emailPattern)) {
                             SystemOprations.showMessage("Please provide email address in correct format", "Email format is wrong", SignInActivity.this, 2);
-                            userName.setError("Email format is wrong");
+                            userName.setError("user name is not valid email format");
                             hideProBar();
                             return;
                         }
@@ -90,8 +90,8 @@ public class SignInActivity extends AppCompatActivity {
                             return;
                         }
                         if (txtAddress.isEmpty()) {
-                            phoneNo.setError("Invalid phone number");
-                            SystemOprations.showMessage("Please provide a 10-digit phone number", "Invalid phone number", SignInActivity.this, 2);
+                            address.setError("Address required");
+                            SystemOprations.showMessage("Please provide a Address", "Address required", SignInActivity.this, 2);
                             hideProBar();
                             return;
                         }
@@ -170,9 +170,20 @@ public class SignInActivity extends AppCompatActivity {
             firebaseAuthClass.saveToFireStore(userList, "User_List", uN.toString().toString(), new FirebaseAuthClass.FirestoreCallback() {
                 @Override
                 public void onSuccess() {
-                    SystemOprations.showMessage("Sign in Successful using " + uN, "Sign in Successful", SignInActivity.this, 1);
-                    hideProBar();
-                    SystemOprations.toGoNewPage(SignInActivity.this, LoginActivity.class);
+                  //  SystemOprations.showMessage("Sign in Successful using " + uN, "Sign in Successful", SignInActivity.this, 1);
+                   SystemOprations.ynDialogSuccess("Sign in Successful using " + uN + "\nWould you like to go to login page", "Sign in Successful", SignInActivity.this, new SystemOprations.dialogCallback() {
+                       @Override
+                       public void onPositiveButtonClicked() {
+                           hideProBar();
+                           SystemOprations.toGoNewPage(SignInActivity.this, LoginActivity.class);
+                       }
+
+                       @Override
+                       public void onNegativeButtonClicked() {
+
+                       }
+                   });
+
                 }
 
                 @Override

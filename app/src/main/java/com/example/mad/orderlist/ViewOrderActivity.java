@@ -77,7 +77,7 @@ public class ViewOrderActivity extends AppCompatActivity {
     private void showAllOrders() {
         try {
             db.collection("Order_List")
-                    .whereEqualTo("UserName", UserInfo.getUserName()).whereEqualTo("IsApprove", false)
+                    .whereEqualTo("IsApprove", false)
                     .get()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {

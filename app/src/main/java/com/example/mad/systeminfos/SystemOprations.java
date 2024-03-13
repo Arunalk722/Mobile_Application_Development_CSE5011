@@ -95,6 +95,36 @@ public class SystemOprations {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    public static void ynDialogSuccess(String message, String title, Context context, dialogCallback callback) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message);
+        builder.setTitle(title);
+        builder.setIcon(R.drawable.c);
+        builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle OK button click
+                if (callback != null) {
+                    callback.onPositiveButtonClicked();
+                }
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle Cancel button click
+                if (callback != null) {
+                    callback.onNegativeButtonClicked();
+                }
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
     public interface dialogCallback {
         void onPositiveButtonClicked();
         void onNegativeButtonClicked();

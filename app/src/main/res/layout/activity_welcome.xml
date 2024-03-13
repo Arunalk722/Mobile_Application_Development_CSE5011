@@ -125,7 +125,7 @@
                 android:textColor="@color/registerPurple"
                 android:id="@+id/lblSignIn"
                 android:textSize="40dp"
-                android:text="Sign In">
+                android:text="Sign-up">
             </TextView>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

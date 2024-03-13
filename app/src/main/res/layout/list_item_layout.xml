@@ -105,7 +105,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="left"
                         android:textColor="@color/black"
-                        android:text="Discount" />
+                        android:text="Discount(LKR)" />
                     <TextView
                         android:textStyle="bold"
                         android:id="@+id/txtDiscount"

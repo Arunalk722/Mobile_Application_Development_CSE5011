@@ -334,7 +334,7 @@ public class ProductMngActivity extends AppCompatActivity {
             firebaseAuthClass.saveToFireStore(productInfo, "Product_List", productId, new FirebaseAuthClass.FirestoreCallback() {
                 @Override
                 public void onSuccess() {
-                    SystemOprations.showMessage("New Product save successful.\nproduct Id " + productId, "New Product save", ProductMngActivity.this, 1);
+                    SystemOprations.showMessage("Product save successful.\nproduct Id " + productId, "Product save", ProductMngActivity.this, 1);
                     hideSavePrograss();
                 }
 
