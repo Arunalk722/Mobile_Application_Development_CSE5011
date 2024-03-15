@@ -132,4 +132,7 @@ public class SystemOprations {
     public static String getDeviceID(Context context){
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
+    public static boolean isValidEmail(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
 }

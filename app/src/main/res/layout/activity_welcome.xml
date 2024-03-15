@@ -129,6 +129,19 @@
             </TextView>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnFeedBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:padding="6dp"
+                app:backgroundTint="@color/white"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/feedback" />
 </LinearLayout>
+
 </ScrollView>
 </LinearLayout>

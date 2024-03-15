@@ -1,5 +1,7 @@
 package com.example.mad.otherwidget;
 
+import static com.example.mad.systeminfos.SystemOprations.isValidEmail;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -65,9 +67,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isValidEmail(String email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
 
     void layoutInit() {
         lblSigIn = (TextView) findViewById(R.id.lblSignIn);

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MAD</string>
+    <string name="app_name">Sprinkles Bakery</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_home">HomeActivity</string>
 </resources>
